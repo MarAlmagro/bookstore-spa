@@ -1,0 +1,76 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# IDE - VSCode
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+hs_err_pid*
+
+# Test Results (exclude execution logs, keep test artifacts)
+test-results/
+test-logs/
+*.test.log
+
+# Environment
+.env
+*.env
+!.env.example
+
+# Docker
+docker-compose.override.yml
+
+# Spring Boot
+spring-boot-devtools.properties
+
+# Coding Agents
+.claude/
+.cursor/
+.deepseek/
+.gemini/
+.google/
+.openai/
+.anthropic/
+.grok/
+.perplexity/
+.grok/
+.windsurf/
+AGENT*.md
+CLAUDE.md
+
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
