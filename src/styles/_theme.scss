@@ -1,0 +1,29 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$bookstore-primary: mat.define-palette(mat.$indigo-palette);
+$bookstore-accent: mat.define-palette(mat.$blue-grey-palette, 700, 500, 900);
+$bookstore-warn: mat.define-palette(mat.$red-palette);
+
+$bookstore-light-theme: mat.define-light-theme((
+  color: (
+    primary: $bookstore-primary,
+    accent: $bookstore-accent,
+    warn: $bookstore-warn,
+  )
+));
+
+$bookstore-dark-theme: mat.define-dark-theme((
+  color: (
+    primary: $bookstore-primary,
+    accent: $bookstore-accent,
+    warn: $bookstore-warn,
+  )
+));
+
+@include mat.all-component-themes($bookstore-light-theme);
+
+.dark-theme {
+  @include mat.all-component-colors($bookstore-dark-theme);
+}
