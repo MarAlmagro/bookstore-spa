@@ -75,10 +75,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "bookstore-spa:build:production"
+              "buildTarget": "bookstore-spa:build:production"
             },
             "development": {
-              "browserTarget": "bookstore-spa:build:development"
+              "buildTarget": "bookstore-spa:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bookstore-spa:build"
+            "buildTarget": "bookstore-spa:build"
           }
         },
         "test": {

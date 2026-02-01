@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,9 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  declarations: [
-    HeaderComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     TranslateModule,
@@ -23,7 +20,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule
   ],
   exports: [
-    HeaderComponent,
     TranslateModule,
     MatToolbarModule,
     MatButtonModule,

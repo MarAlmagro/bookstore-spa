@@ -2,11 +2,11 @@
 
 @include mat.core();
 
-$bookstore-primary: mat.define-palette(mat.$indigo-palette);
-$bookstore-accent: mat.define-palette(mat.$blue-grey-palette, 700, 500, 900);
-$bookstore-warn: mat.define-palette(mat.$red-palette);
+$bookstore-primary: mat-palette($mat-indigo);
+$bookstore-accent: mat-palette($mat-blue-grey, 700, 500, 900);
+$bookstore-warn: mat-palette($mat-red);
 
-$bookstore-light-theme: mat.define-light-theme((
+$bookstore-light-theme: mat-light-theme((
   color: (
     primary: $bookstore-primary,
     accent: $bookstore-accent,
@@ -14,7 +14,7 @@ $bookstore-light-theme: mat.define-light-theme((
   )
 ));
 
-$bookstore-dark-theme: mat.define-dark-theme((
+$bookstore-dark-theme: mat-dark-theme((
   color: (
     primary: $bookstore-primary,
     accent: $bookstore-accent,
