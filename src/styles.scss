@@ -1,0 +1,33 @@
+@use './styles/theme';
+
+html, body { 
+  height: 100%; 
+  margin: 0;
+}
+
+body { 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.dark-theme body {
+  background-color: #303030;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 24px;
+  }
+}

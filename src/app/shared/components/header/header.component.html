@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <div class="toolbar-container">
+    <div class="logo-section">
+      <button mat-icon-button aria-label="Menu" data-testid="menu-button">
+        <mat-icon>menu_book</mat-icon>
+      </button>
+      <span class="app-title" data-testid="app-title">{{ 'app.title' | translate }}</span>
+    </div>
+
+    <div class="toolbar-actions">
+      <button 
+        mat-icon-button 
+        [matTooltip]="(isDarkMode$ | async) ? ('header.lightMode' | translate) : ('header.darkMode' | translate)"
+        (click)="toggleTheme()"
+        [attr.aria-label]="'header.theme' | translate"
+        data-testid="theme-toggle">
+        <mat-icon>{{ (isDarkMode$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+
+      <button 
+        mat-button 
+        [matMenuTriggerFor]="languageMenu"
+        [attr.aria-label]="'header.language' | translate"
+        data-testid="language-menu-trigger">
+        <mat-icon>language</mat-icon>
+        <span class="language-text">{{ getCurrentLanguageName() }}</span>
+      </button>
+      <mat-menu #languageMenu="matMenu">
+        @for (lang of availableLanguages; track lang.code) {
+          <button 
+            mat-menu-item 
+            (click)="changeLanguage(lang.code)"
+            [class.active-language]="currentLang === lang.code"
+            [attr.data-testid]="'language-' + lang.code">
+            <mat-icon>{{ currentLang === lang.code ? 'check' : '' }}</mat-icon>
+            <span>{{ lang.name }}</span>
+          </button>
+        }
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>

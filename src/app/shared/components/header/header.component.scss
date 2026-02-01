@@ -1,0 +1,57 @@
+.header-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.language-text {
+  margin-left: 4px;
+}
+
+.active-language {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.dark-theme .active-language {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 1rem;
+  }
+  
+  .language-text {
+    display: none;
+  }
+}
