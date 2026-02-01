@@ -23,13 +23,25 @@
     "confirmPassword": "Confirmar Contraseña",
     "firstName": "Nombre",
     "lastName": "Apellidos",
+    "togglePassword": "Mostrar/ocultar contraseña",
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "noAccount": "¿No tienes cuenta?",
     "hasAccount": "¿Ya tienes cuenta?",
     "loginSuccess": "Inicio de sesión exitoso",
     "loginError": "Error al iniciar sesión",
-    "registerSuccess": "Registro exitoso",
-    "registerError": "Error al registrarse"
+    "registerSuccess": "¡Cuenta creada exitosamente!",
+    "registerError": "Error al registrarse",
+    "errors": {
+      "emailRequired": "El correo electrónico es obligatorio",
+      "emailInvalid": "Por favor, introduce un correo válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "firstNameRequired": "El nombre es obligatorio",
+      "firstNameMaxLength": "El nombre es demasiado largo",
+      "lastNameRequired": "Los apellidos son obligatorios",
+      "lastNameMaxLength": "Los apellidos son demasiado largos",
+      "invalidCredentials": "Correo o contraseña inválidos"
+    }
   },
   "catalog": {
     "title": "Catálogo de Libros",
