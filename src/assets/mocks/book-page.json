@@ -1,0 +1,30 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "isbn": "9780134685991",
+      "title": "Effective Java",
+      "author": "Joshua Bloch",
+      "description": "The definitive guide to Java best practices",
+      "price": 45.99,
+      "stock": 50,
+      "category": "Programming"
+    },
+    {
+      "id": 2,
+      "isbn": "9780596517748",
+      "title": "JavaScript: The Good Parts",
+      "author": "Douglas Crockford",
+      "description": "Unearthing the excellence in JavaScript",
+      "price": 29.99,
+      "stock": 30,
+      "category": "Programming"
+    }
+  ],
+  "page": 0,
+  "size": 20,
+  "totalElements": 5,
+  "totalPages": 1,
+  "first": true,
+  "last": true
+}

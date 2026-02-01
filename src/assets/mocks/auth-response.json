@@ -1,0 +1,11 @@
+{
+  "token": "mock-access-token-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+  "refreshToken": "mock-refresh-token-dGhpcyBpcyBhIG1vY2sgcmVmcmVzaCB0b2tlbg",
+  "user": {
+    "id": 1,
+    "email": "customer@example.com",
+    "firstName": "Test",
+    "lastName": "Customer",
+    "role": "CUSTOMER"
+  }
+}
