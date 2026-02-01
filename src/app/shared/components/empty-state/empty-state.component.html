@@ -1,0 +1,13 @@
+<div class="empty-state" data-testid="empty-state">
+  <mat-icon class="empty-icon">{{ icon }}</mat-icon>
+  <p class="empty-message">{{ message }}</p>
+  @if (actionLabel) {
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="onAction()"
+      data-testid="empty-state-action">
+      {{ actionLabel }}
+    </button>
+  }
+</div>
