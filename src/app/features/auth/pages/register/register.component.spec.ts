@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router, ActivatedRoute } from '@angular/router';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule } from '@ngx-translate/core';
 import { of, throwError } from 'rxjs';
@@ -41,7 +40,6 @@ describe('RegisterComponent', () => {
       imports: [RegisterComponent, TranslateModule.forRoot()],
       providers: [
         provideRouter([]),
-        provideNoopAnimations(),
         { provide: AuthService, useValue: authServiceMock },
         { provide: MatSnackBar, useValue: snackBarMock },
         { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } }
