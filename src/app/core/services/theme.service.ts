@@ -8,7 +8,7 @@ export class ThemeService {
   private readonly THEME_KEY = 'bookstore-theme';
   private readonly DARK_THEME_CLASS = 'dark-theme';
   
-  private isDarkModeSubject: BehaviorSubject<boolean>;
+  private readonly isDarkModeSubject: BehaviorSubject<boolean>;
   public isDarkMode$: Observable<boolean>;
 
   constructor() {
@@ -58,7 +58,7 @@ export class ThemeService {
         return savedTheme === 'dark';
       }
       
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return globalThis.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
     } catch (error) {
       console.warn('Failed to load theme preference:', error);
       return false;
