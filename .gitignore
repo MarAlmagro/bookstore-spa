@@ -61,6 +61,12 @@ test-results/
 test-logs/
 *.test.log
 
+# Playwright
+/playwright-report/
+/test-results/
+/blob-report/
+/coverage/
+
 # Docker
 docker-compose.override.yml
 
