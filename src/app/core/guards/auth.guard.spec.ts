@@ -1,32 +1,34 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
-  let authServiceMock: Partial<AuthService>;
-  let routerMock: Partial<Router>;
+  let isAuthenticated$: BehaviorSubject<boolean>;
+  let routerMock: { createUrlTree: jest.Mock };
 
-  beforeEach(() => {
-    authServiceMock = {
-      isAuthenticated$: of(false)
-    };
-
+  function setupTestBed(authenticated: boolean): void {
+    isAuthenticated$ = new BehaviorSubject<boolean>(authenticated);
     routerMock = {
-      createUrlTree: jest.fn().mockReturnValue({} as any)
+      createUrlTree: jest.fn().mockReturnValue({})
     };
 
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       providers: [
         AuthGuard,
-        { provide: AuthService, useValue: authServiceMock },
+        { provide: AuthService, useValue: { isAuthenticated$: isAuthenticated$.asObservable() } },
         { provide: Router, useValue: routerMock }
       ]
     });
 
     guard = TestBed.inject(AuthGuard);
+  }
+
+  beforeEach(() => {
+    setupTestBed(false);
   });
 
   it('should be created', () => {
@@ -34,7 +36,7 @@ describe('AuthGuard', () => {
   });
 
   it('should allow access when authenticated', (done) => {
-    authServiceMock.isAuthenticated$ = of(true);
+    setupTestBed(true);
 
     guard.canActivate({} as any, { url: '/orders' } as any).subscribe(result => {
       expect(result).toBe(true);
@@ -44,7 +46,7 @@ describe('AuthGuard', () => {
   });
 
   it('should redirect to login when not authenticated', (done) => {
-    authServiceMock.isAuthenticated$ = of(false);
+    setupTestBed(false);
 
     guard.canActivate({} as any, { url: '/orders' } as any).subscribe(result => {
       expect(routerMock.createUrlTree).toHaveBeenCalledWith(['/auth/login'], {
@@ -55,7 +57,7 @@ describe('AuthGuard', () => {
   });
 
   it('should pass returnUrl in query params', (done) => {
-    authServiceMock.isAuthenticated$ = of(false);
+    setupTestBed(false);
     const testUrl = '/orders/123';
 
     guard.canActivate({} as any, { url: testUrl } as any).subscribe(() => {

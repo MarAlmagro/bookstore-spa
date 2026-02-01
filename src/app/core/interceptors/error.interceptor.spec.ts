@@ -8,10 +8,10 @@ import { AuthService } from '../services/auth.service';
 
 describe('ErrorInterceptor', () => {
   let interceptor: ErrorInterceptor;
-  let authServiceMock: Partial<AuthService>;
-  let snackBarMock: Partial<MatSnackBar>;
-  let translateMock: Partial<TranslateService>;
-  let httpHandlerMock: Partial<HttpHandler>;
+  let authServiceMock: { refreshToken: jest.Mock; getAccessToken: jest.Mock; logout: jest.Mock };
+  let snackBarMock: { open: jest.Mock };
+  let translateMock: { get: jest.Mock; instant: jest.Mock };
+  let httpHandlerMock: { handle: jest.Mock };
 
   beforeEach(() => {
     authServiceMock = {
@@ -50,11 +50,11 @@ describe('ErrorInterceptor', () => {
   });
 
   it('should show snackbar for 400 error', (done) => {
-    const request = new HttpRequest('GET', '/api/v1/books');
+    const request = new HttpRequest<unknown>('GET', '/api/v1/books');
     const error = new HttpErrorResponse({ status: 400 });
-    (httpHandlerMock.handle as jest.Mock).mockReturnValue(throwError(() => error));
+    httpHandlerMock.handle.mockReturnValue(throwError(() => error));
 
-    interceptor.intercept(request, httpHandlerMock as HttpHandler).subscribe({
+    interceptor.intercept(request, httpHandlerMock as unknown as HttpHandler).subscribe({
       error: () => {
         expect(translateMock.get).toHaveBeenCalledWith('errors.badRequest');
         expect(snackBarMock.open).toHaveBeenCalled();
@@ -64,11 +64,11 @@ describe('ErrorInterceptor', () => {
   });
 
   it('should show snackbar for 404 error', (done) => {
-    const request = new HttpRequest('GET', '/api/v1/books/999');
+    const request = new HttpRequest<unknown>('GET', '/api/v1/books/999');
     const error = new HttpErrorResponse({ status: 404 });
-    (httpHandlerMock.handle as jest.Mock).mockReturnValue(throwError(() => error));
+    httpHandlerMock.handle.mockReturnValue(throwError(() => error));
 
-    interceptor.intercept(request, httpHandlerMock as HttpHandler).subscribe({
+    interceptor.intercept(request, httpHandlerMock as unknown as HttpHandler).subscribe({
       error: () => {
         expect(translateMock.get).toHaveBeenCalledWith('errors.notFound');
         done();
@@ -77,13 +77,13 @@ describe('ErrorInterceptor', () => {
   });
 
   it('should attempt token refresh on 401 error', (done) => {
-    const request = new HttpRequest('GET', '/api/v1/orders');
+    const request = new HttpRequest<unknown>('GET', '/api/v1/orders');
     const error = new HttpErrorResponse({ status: 401 });
-    (httpHandlerMock.handle as jest.Mock)
+    httpHandlerMock.handle
       .mockReturnValueOnce(throwError(() => error))
       .mockReturnValueOnce(of({}));
 
-    interceptor.intercept(request, httpHandlerMock as HttpHandler).subscribe({
+    interceptor.intercept(request, httpHandlerMock as unknown as HttpHandler).subscribe({
       next: () => {
         expect(authServiceMock.refreshToken).toHaveBeenCalled();
         done();
@@ -92,11 +92,11 @@ describe('ErrorInterceptor', () => {
   });
 
   it('should not refresh token for auth endpoints', (done) => {
-    const request = new HttpRequest('POST', '/api/v1/auth/login');
+    const request = new HttpRequest<unknown>('POST', '/api/v1/auth/login', {});
     const error = new HttpErrorResponse({ status: 401 });
-    (httpHandlerMock.handle as jest.Mock).mockReturnValue(throwError(() => error));
+    httpHandlerMock.handle.mockReturnValue(throwError(() => error));
 
-    interceptor.intercept(request, httpHandlerMock as HttpHandler).subscribe({
+    interceptor.intercept(request, httpHandlerMock as unknown as HttpHandler).subscribe({
       error: () => {
         expect(authServiceMock.refreshToken).not.toHaveBeenCalled();
         done();
@@ -105,12 +105,12 @@ describe('ErrorInterceptor', () => {
   });
 
   it('should logout if token refresh fails', (done) => {
-    const request = new HttpRequest('GET', '/api/v1/orders');
+    const request = new HttpRequest<unknown>('GET', '/api/v1/orders');
     const error = new HttpErrorResponse({ status: 401 });
-    (authServiceMock.refreshToken as jest.Mock).mockReturnValue(throwError(() => error));
-    (httpHandlerMock.handle as jest.Mock).mockReturnValue(throwError(() => error));
+    authServiceMock.refreshToken.mockReturnValue(throwError(() => error));
+    httpHandlerMock.handle.mockReturnValue(throwError(() => error));
 
-    interceptor.intercept(request, httpHandlerMock as HttpHandler).subscribe({
+    interceptor.intercept(request, httpHandlerMock as unknown as HttpHandler).subscribe({
       error: () => {
         expect(authServiceMock.logout).toHaveBeenCalled();
         done();

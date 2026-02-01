@@ -5,7 +5,7 @@ import { MockInterceptor } from './mock.interceptor';
 
 describe('MockInterceptor', () => {
   let interceptor: MockInterceptor;
-  let httpHandlerMock: Partial<HttpHandler>;
+  let httpHandlerMock: { handle: jest.Mock };
 
   beforeEach(() => {
     httpHandlerMock = {

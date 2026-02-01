@@ -8,13 +8,13 @@ export class MockInterceptor implements HttpInterceptor {
   private mockData: Map<string, unknown> = new Map();
 
   constructor() {
-    if (environment.enableMocks) {
+    if (environment.useMocks) {
       this.loadMockData();
     }
   }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (!environment.enableMocks) {
+    if (!environment.useMocks) {
       return next.handle(req);
     }
 
