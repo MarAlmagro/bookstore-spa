@@ -16,8 +16,8 @@ export class AppComponent implements OnInit {
   title = 'bookstore-spa';
 
   constructor(
-    private translate: TranslateService,
-    private themeService: ThemeService
+    private readonly translate: TranslateService,
+    private readonly themeService: ThemeService
   ) {
     this.translate.setDefaultLang(environment.defaultLanguage);
     this.translate.use(environment.defaultLanguage);

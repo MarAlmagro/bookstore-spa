@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from '../../../core/services/theme.service';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,8 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatMenuModule,
     MatTooltipModule,
     TranslateModule,
-    AsyncPipe,
-    NgFor
+    AsyncPipe
   ]
 })
 export class HeaderComponent implements OnInit {
@@ -34,8 +33,8 @@ export class HeaderComponent implements OnInit {
   ];
 
   constructor(
-    private translate: TranslateService,
-    private themeService: ThemeService
+    private readonly translate: TranslateService,
+    private readonly themeService: ThemeService
   ) {
     this.isDarkMode$ = this.themeService.isDarkMode$;
     this.currentLang = this.translate.currentLang || 'es';
