@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   apiUrl: '/api/v1',
   apiGateway: 'http://localhost:8080',
-  defaultLanguage: 'es',
-  enableMocks: false
+  defaultLanguage: 'en',
+  useMocks: false  // Set true for offline development
 };
 
 /*

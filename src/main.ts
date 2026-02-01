@@ -11,18 +11,22 @@ if (environment.production) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideHttpClient(),
-    importProvidersFrom(
-      BrowserModule,
-      TranslateModule.forRoot({
-        defaultLanguage: 'en'
+try {
+  await bootstrapApplication(AppComponent, {
+    providers: [
+      provideHttpClient(),
+      importProvidersFrom(
+        BrowserModule,
+        TranslateModule.forRoot({
+          defaultLanguage: 'en'
+        })
+      ),
+      provideTranslateHttpLoader({
+        prefix: './assets/i18n/',
+        suffix: '.json'
       })
-    ),
-    provideTranslateHttpLoader({
-      prefix: './assets/i18n/',
-      suffix: '.json'
-    })
-  ]
-}).catch((err) => console.error(err));
+    ]
+  });
+} catch (err) {
+  console.error(err);
+}

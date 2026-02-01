@@ -3,13 +3,19 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "target": "ES2022",
     "types": [
-      "jasmine"
-    ]
+      "jest",
+      "node"
+    ],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true
   },
   "files": [
-    "src/test.ts",
-    "src/polyfills.ts"
+    "src/setup-jest.ts"
   ],
   "include": [
     "src/**/*.spec.ts",
