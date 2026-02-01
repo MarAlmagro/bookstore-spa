@@ -88,6 +88,17 @@
     "remove": "Eliminar",
     "quantity": "Cantidad"
   },
+  "errors": {
+    "generic": "Ha ocurrido un error. Por favor, inténtalo de nuevo.",
+    "network": "Error de conexión. Verifica tu conexión a internet.",
+    "notFound": "Recurso no encontrado",
+    "unauthorized": "No autorizado. Por favor, inicia sesión.",
+    "forbidden": "No tienes permisos para realizar esta acción",
+    "validation": "Por favor, verifica los datos ingresados",
+    "serverError": "Error del servidor. Por favor, inténtalo más tarde.",
+    "badRequest": "Solicitud inválida. Por favor, verifica tu entrada.",
+    "networkError": "No se puede conectar. Por favor, verifica tu conexión a internet."
+  },
   "common": {
     "save": "Guardar",
     "cancel": "Cancelar",
@@ -105,15 +116,7 @@
     "error": "Error",
     "success": "Éxito",
     "warning": "Advertencia",
-    "info": "Información"
-  },
-  "errors": {
-    "generic": "Ha ocurrido un error. Por favor, inténtalo de nuevo.",
-    "network": "Error de conexión. Verifica tu conexión a internet.",
-    "notFound": "Recurso no encontrado",
-    "unauthorized": "No autorizado. Por favor, inicia sesión.",
-    "forbidden": "No tienes permisos para realizar esta acción",
-    "validation": "Por favor, verifica los datos ingresados",
-    "serverError": "Error del servidor. Por favor, inténtalo más tarde."
+    "info": "Información",
+    "retry": "Reintentar"
   }
 }
