@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
+import { provideRouter, ActivatedRoute } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError } from 'rxjs';
@@ -49,14 +48,14 @@ describe('BookDetailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [BookDetailComponent],
       imports: [
-        RouterTestingModule,
-        NoopAnimationsModule,
         TranslateModule.forRoot(),
         MatButtonModule,
         MatIconModule,
         MatProgressSpinnerModule
       ],
       providers: [
+        provideRouter([]),
+        provideNoopAnimations(),
         { provide: CatalogService, useValue: catalogServiceMock },
         { provide: CartService, useValue: cartServiceMock },
         { provide: MatSnackBar, useValue: snackBarMock },

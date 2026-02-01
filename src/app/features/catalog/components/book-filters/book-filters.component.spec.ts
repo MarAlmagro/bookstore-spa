@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookFiltersComponent } from './book-filters.component';
 
@@ -21,14 +21,14 @@ describe('BookFiltersComponent', () => {
       declarations: [BookFiltersComponent],
       imports: [
         ReactiveFormsModule,
-        NoopAnimationsModule,
         TranslateModule.forRoot(),
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
         MatButtonModule,
         MatIconModule
-      ]
+      ],
+      providers: [provideNoopAnimations()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BookFiltersComponent);

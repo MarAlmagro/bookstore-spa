@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { CatalogService } from './catalog.service';
 import { Book, PageResponse } from '@app/models';
 import { environment } from '@environments/environment';
@@ -26,8 +27,11 @@ describe('CatalogService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [CatalogService]
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        CatalogService
+      ]
     });
     service = TestBed.inject(CatalogService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -92,7 +96,7 @@ describe('CatalogService', () => {
       expect(loadingStates).toContain(true);
 
       req.flush(mockPageResponse);
-      expect(loadingStates[loadingStates.length - 1]).toBe(false);
+      expect(loadingStates.at(-1)).toBe(false);
     });
 
     it('should extract categories from books', () => {
@@ -136,7 +140,7 @@ describe('CatalogService', () => {
       expect(loadingStates).toContain(true);
 
       req.flush(mockBooks[0]);
-      expect(loadingStates[loadingStates.length - 1]).toBe(false);
+      expect(loadingStates.at(-1)).toBe(false);
     });
   });
 

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { BookListComponent } from './book-list.component';
@@ -53,8 +53,6 @@ describe('BookListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [BookListComponent],
       imports: [
-        RouterTestingModule,
-        NoopAnimationsModule,
         TranslateModule.forRoot(),
         MatPaginatorModule,
         MatProgressSpinnerModule,
@@ -62,6 +60,8 @@ describe('BookListComponent', () => {
         MatButtonModule
       ],
       providers: [
+        provideRouter([]),
+        provideNoopAnimations(),
         { provide: CatalogService, useValue: catalogServiceMock },
         { provide: CartService, useValue: cartServiceMock }
       ],
