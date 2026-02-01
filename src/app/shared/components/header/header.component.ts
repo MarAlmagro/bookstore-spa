@@ -1,4 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ThemeService } from '../../../core/services/theme.service';
 import { Observable } from 'rxjs';
@@ -27,6 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class HeaderComponent implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly themeService = inject(ThemeService);
+  private readonly destroyRef = inject(DestroyRef);
   isDarkMode$: Observable<boolean>;
   currentLang: string;
   availableLanguages = [
@@ -36,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
   constructor() {
     this.isDarkMode$ = this.themeService.isDarkMode$;
-    this.currentLang = this.translate.currentLang || 'es';
+    this.currentLang = this.translate.getCurrentLang() || this.translate.getFallbackLang() || 'es';
   }
 
   ngOnInit(): void {
@@ -50,7 +52,9 @@ export class HeaderComponent implements OnInit {
   }
 
   changeLanguage(lang: string): void {
-    this.translate.use(lang);
+    this.translate.use(lang)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe();
     this.currentLang = lang;
   }
 
