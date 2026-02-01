@@ -16,20 +16,32 @@
     "lightMode": "Light Mode"
   },
   "auth": {
-    "login": "Login",
+    "login": "Sign In",
     "register": "Register",
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "firstName": "First Name",
     "lastName": "Last Name",
+    "togglePassword": "Toggle password visibility",
     "forgotPassword": "Forgot your password?",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "loginSuccess": "Login successful",
     "loginError": "Login error",
-    "registerSuccess": "Registration successful",
-    "registerError": "Registration error"
+    "registerSuccess": "Account created successfully!",
+    "registerError": "Registration error",
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "firstNameRequired": "First name is required",
+      "firstNameMaxLength": "First name is too long",
+      "lastNameRequired": "Last name is required",
+      "lastNameMaxLength": "Last name is too long",
+      "invalidCredentials": "Invalid email or password"
+    }
   },
   "catalog": {
     "title": "Book Catalog",
