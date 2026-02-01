@@ -5,7 +5,7 @@ import { environment } from '@environments/environment';
 
 @Injectable()
 export class MockInterceptor implements HttpInterceptor {
-  private mockData: Map<string, unknown> = new Map();
+  private readonly mockData: Map<string, unknown> = new Map();
 
   constructor() {
     if (environment.useMocks) {

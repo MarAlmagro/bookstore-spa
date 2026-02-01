@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { AuthService } from './auth.service';
 import { AuthResponse, AuthRequest, RegisterRequest } from '@app/models';
 import { environment } from '@environments/environment';
@@ -11,8 +13,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [AuthService]
+      providers: [provideHttpClient(), provideHttpClientTesting(), AuthService]
     });
     service = TestBed.inject(AuthService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -50,7 +51,7 @@ describe('AuthService', () => {
       req.flush(mockResponse);
     });
 
-    it('should update isAuthenticated$ to true', (done) => {
+    it('should update isAuthenticated$ to true', async () => {
       const mockResponse: AuthResponse = {
         token: 'access-token',
         refreshToken: 'refresh-token',
@@ -58,15 +59,14 @@ describe('AuthService', () => {
       };
       const credentials: AuthRequest = { email: 'test@test.com', password: 'password' };
 
-      service.login(credentials).subscribe(() => {
-        service.isAuthenticated$.subscribe(isAuth => {
-          expect(isAuth).toBe(true);
-          done();
-        });
-      });
+      const loginPromise = firstValueFrom(service.login(credentials));
 
       const req = httpMock.expectOne(`${environment.apiUrl}${API_ENDPOINTS.AUTH.LOGIN}`);
       req.flush(mockResponse);
+
+      await loginPromise;
+      const isAuth = await firstValueFrom(service.isAuthenticated$);
+      expect(isAuth).toBe(true);
     });
 
     it('should handle login error', (done) => {
@@ -111,7 +111,7 @@ describe('AuthService', () => {
   });
 
   describe('logout', () => {
-    it('should clear token and user state', (done) => {
+    it('should clear token and user state', async () => {
       localStorage.setItem('refresh_token', 'some-token');
       service['accessToken'] = 'access-token';
       service['_user$'].next({ id: 1, email: 'test@test.com', firstName: 'Test', lastName: 'User', role: 'CUSTOMER' });
@@ -121,10 +121,8 @@ describe('AuthService', () => {
 
       expect(localStorage.getItem('refresh_token')).toBeNull();
       expect(service.getAccessToken()).toBeNull();
-      service.isAuthenticated$.subscribe(isAuth => {
-        expect(isAuth).toBe(false);
-        done();
-      });
+      const isAuth = await firstValueFrom(service.isAuthenticated$);
+      expect(isAuth).toBe(false);
     });
   });
 
