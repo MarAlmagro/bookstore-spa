@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { API_ENDPOINTS } from '../constants';
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly _user$ = new BehaviorSubject<User | null>(null);
   private readonly _isAuthenticated$ = new BehaviorSubject<boolean>(false);
@@ -18,7 +19,7 @@ export class AuthService {
   readonly user$ = this._user$.asObservable();
   readonly isAuthenticated$ = this._isAuthenticated$.asObservable();
 
-  constructor(private readonly http: HttpClient) {
+  constructor() {
     this.initializeAuth();
   }
 

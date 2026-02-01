@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -8,13 +8,10 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+  private readonly authService = inject(AuthService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly translate = inject(TranslateService);
   private isRefreshing = false;
-
-  constructor(
-    private readonly authService: AuthService,
-    private readonly snackBar: MatSnackBar,
-    private readonly translate: TranslateService
-  ) {}
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(req).pipe(

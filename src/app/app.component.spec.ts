@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
+import { ThemeService } from './core/services/theme.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
-      providers: [provideRouter([])]
+      imports: [AppComponent, TranslateModule.forRoot()],
+      providers: [provideRouter([]), ThemeService]
     }).compileComponents();
   });
 
@@ -22,10 +24,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('bookstore-spa');
   });
 
-  it('should render title', () => {
+  it('should render main content area', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('bookstore-spa app is running!');
+    expect(compiled.querySelector('main.main-content')).toBeTruthy();
   });
 });

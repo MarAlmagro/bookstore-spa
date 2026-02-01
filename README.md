@@ -165,7 +165,7 @@ ng e2e
 ### Testing Guidelines
 
 - All interactive elements must have `data-testid` attributes
-- Components should be unit tested with Jasmine/Karma
+- Components should be unit tested with Jest
 - Services should be tested with mock data
 - Integration tests for critical user flows
 

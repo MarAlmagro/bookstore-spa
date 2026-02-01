@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from './core/services/theme.service';
 import { environment } from '../environments/environment';
@@ -13,12 +13,11 @@ import { RouterModule } from '@angular/router';
   imports: [HeaderComponent, RouterModule]
 })
 export class AppComponent implements OnInit {
+  private readonly translate = inject(TranslateService);
+  private readonly themeService = inject(ThemeService);
   title = 'bookstore-spa';
 
-  constructor(
-    private readonly translate: TranslateService,
-    private readonly themeService: ThemeService
-  ) {
+  constructor() {
     this.translate.setDefaultLang(environment.defaultLanguage);
     this.translate.use(environment.defaultLanguage);
   }

@@ -22,7 +22,7 @@ export class CartService {
     this.loadFromStorage();
   }
 
-  addItem(book: Book, quantity: number = 1): void {
+  addItem(book: Book, quantity = 1): void {
     const currentItems = this._items$.value;
     const existingItem = currentItems.find(item => item.book.id === book.id);
 

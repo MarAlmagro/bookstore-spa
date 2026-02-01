@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
@@ -38,7 +38,7 @@ describe('AuthGuard', () => {
   it('should allow access when authenticated', (done) => {
     setupTestBed(true);
 
-    guard.canActivate({} as any, { url: '/orders' } as any).subscribe(result => {
+    guard.canActivate({} as ActivatedRouteSnapshot, { url: '/orders' } as RouterStateSnapshot).subscribe(result => {
       expect(result).toBe(true);
       expect(routerMock.createUrlTree).not.toHaveBeenCalled();
       done();
@@ -48,7 +48,7 @@ describe('AuthGuard', () => {
   it('should redirect to login when not authenticated', (done) => {
     setupTestBed(false);
 
-    guard.canActivate({} as any, { url: '/orders' } as any).subscribe(result => {
+    guard.canActivate({} as ActivatedRouteSnapshot, { url: '/orders' } as RouterStateSnapshot).subscribe(() => {
       expect(routerMock.createUrlTree).toHaveBeenCalledWith(['/auth/login'], {
         queryParams: { returnUrl: '/orders' }
       });
@@ -60,7 +60,7 @@ describe('AuthGuard', () => {
     setupTestBed(false);
     const testUrl = '/orders/123';
 
-    guard.canActivate({} as any, { url: testUrl } as any).subscribe(() => {
+    guard.canActivate({} as ActivatedRouteSnapshot, { url: testUrl } as RouterStateSnapshot).subscribe(() => {
       expect(routerMock.createUrlTree).toHaveBeenCalledWith(['/auth/login'], {
         queryParams: { returnUrl: testUrl }
       });
