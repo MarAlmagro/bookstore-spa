@@ -1,17 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 // provideNoopAnimations is the correct modern Angular 21+ API replacing NoopAnimationsModule
 // The deprecation warning is a false positive from outdated type definitions
  
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookFiltersComponent } from './book-filters.component';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 describe('BookFiltersComponent', () => {
   let component: BookFiltersComponent;
@@ -21,15 +14,9 @@ describe('BookFiltersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BookFiltersComponent],
       imports: [
-        ReactiveFormsModule,
-        TranslateModule.forRoot(),
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatButtonModule,
-        MatIconModule
+        BookFiltersComponent,
+        TranslateModule.forRoot()
       ],
       providers: [provideNoopAnimations()]
     }).compileComponents();

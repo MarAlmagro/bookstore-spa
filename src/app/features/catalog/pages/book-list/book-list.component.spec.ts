@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { provideRouter } from '@angular/router';
 // provideNoopAnimations is the correct modern Angular 21+ API replacing NoopAnimationsModule
 // The deprecation warning is a false positive from outdated type definitions
@@ -11,11 +10,6 @@ import { BookListComponent } from './book-list.component';
 import { CatalogService } from '../../services/catalog.service';
 import { CartService } from '@core/services';
 import { Book, PageResponse } from '@app/models';
-
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 
 describe('BookListComponent', () => {
   let component: BookListComponent;
@@ -54,21 +48,16 @@ describe('BookListComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [BookListComponent],
       imports: [
-        TranslateModule.forRoot(),
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        MatIconModule,
-        MatButtonModule
+        BookListComponent,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideRouter([]),
         provideNoopAnimations(),
         { provide: CatalogService, useValue: catalogServiceMock },
         { provide: CartService, useValue: cartServiceMock }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BookListComponent);
@@ -113,9 +102,10 @@ describe('BookListComponent', () => {
   });
 
   it('should load books by category when category is set', () => {
-    component.category = 'Fiction';
     fixture.detectChanges();
+    jest.clearAllMocks();
 
+    component.category = 'Fiction';
     component.loadBooks(0);
 
     expect(catalogServiceMock.getBooksByCategory).toHaveBeenCalledWith('Fiction', 0);

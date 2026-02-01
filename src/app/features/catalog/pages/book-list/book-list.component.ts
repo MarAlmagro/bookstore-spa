@@ -1,14 +1,32 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PageEvent } from '@angular/material/paginator';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 import { CatalogService } from '../../services/catalog.service';
 import { CartService } from '@core/services';
 import { Book } from '@app/models';
+import { BookCardComponent } from '../../components/book-card/book-card.component';
+import { BookFiltersComponent } from '../../components/book-filters/book-filters.component';
 
 @Component({
   selector: 'app-book-list',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatIconModule,
+    TranslateModule,
+    BookCardComponent,
+    BookFiltersComponent
+  ],
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

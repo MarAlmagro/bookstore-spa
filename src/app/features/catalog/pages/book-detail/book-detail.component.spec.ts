@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { provideRouter, ActivatedRoute } from '@angular/router';
 // provideNoopAnimations is the correct modern Angular 21+ API replacing NoopAnimationsModule
 // The deprecation warning is a false positive from outdated type definitions
@@ -12,10 +11,6 @@ import { BookDetailComponent } from './book-detail.component';
 import { CatalogService } from '../../services/catalog.service';
 import { CartService } from '@core/services';
 import { Book } from '@app/models';
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('BookDetailComponent', () => {
   let component: BookDetailComponent;
@@ -49,12 +44,9 @@ describe('BookDetailComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      declarations: [BookDetailComponent],
       imports: [
-        TranslateModule.forRoot(),
-        MatButtonModule,
-        MatIconModule,
-        MatProgressSpinnerModule
+        BookDetailComponent,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideRouter([]),
@@ -68,8 +60,7 @@ describe('BookDetailComponent', () => {
             params: of({ id: '1' })
           }
         }
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BookDetailComponent);

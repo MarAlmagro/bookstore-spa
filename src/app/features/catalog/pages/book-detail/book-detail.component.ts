@@ -1,9 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, switchMap, tap, catchError } from 'rxjs/operators';
 import { CatalogService } from '../../services/catalog.service';
@@ -12,6 +15,14 @@ import { Book } from '@app/models';
 
 @Component({
   selector: 'app-book-detail',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    TranslateModule
+  ],
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
