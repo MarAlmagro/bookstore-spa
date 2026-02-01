@@ -1,0 +1,77 @@
+<mat-card 
+  class="book-card" 
+  [attr.data-testid]="'catalog-book-card-' + book.id"
+  (click)="onViewDetails()"
+  tabindex="0"
+  (keydown.enter)="onViewDetails()"
+  role="article"
+  [attr.aria-label]="book.title + ' by ' + book.author">
+  
+  <div class="book-cover">
+    <mat-icon class="book-placeholder-icon">menu_book</mat-icon>
+    <span 
+      class="category-badge" 
+      [attr.data-testid]="'catalog-book-card-' + book.id + '-category'">
+      {{ book.category }}
+    </span>
+  </div>
+
+  <mat-card-content>
+    <h3 
+      class="book-title" 
+      [attr.data-testid]="'catalog-book-card-' + book.id + '-title'"
+      [title]="book.title">
+      {{ book.title }}
+    </h3>
+    
+    <p 
+      class="book-author" 
+      [attr.data-testid]="'catalog-book-card-' + book.id + '-author'">
+      {{ book.author }}
+    </p>
+
+    <div class="book-footer">
+      <span 
+        class="book-price" 
+        [attr.data-testid]="'catalog-book-card-' + book.id + '-price'">
+        {{ book.price | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+
+      <span 
+        class="stock-status"
+        [class.out-of-stock]="isOutOfStock"
+        [class.low-stock]="isLowStock"
+        [attr.data-testid]="'catalog-book-card-' + book.id + '-stock'">
+  @if (isOutOfStock) {
+          {{ 'book.outOfStock' | translate }}
+        } @else if (isLowStock) {
+          {{ 'book.lowStock' | translate }}
+        } @else {
+          {{ 'book.inStock' | translate }}
+        }
+      </span>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button 
+      mat-raised-button 
+      color="primary"
+      [disabled]="isOutOfStock"
+      (click)="onAddToCart($event)"
+      [attr.data-testid]="'catalog-book-card-' + book.id + '-add-cart'"
+      [attr.aria-label]="('catalog.addToCart' | translate) + ' ' + book.title">
+      <mat-icon>add_shopping_cart</mat-icon>
+      {{ 'catalog.addToCart' | translate }}
+    </button>
+    
+    <button 
+      mat-button 
+      color="accent"
+      (click)="onViewDetails(); $event.stopPropagation()"
+      [attr.data-testid]="'catalog-book-card-' + book.id + '-view'"
+      [attr.aria-label]="('catalog.viewDetails' | translate) + ' ' + book.title">
+      {{ 'catalog.viewDetails' | translate }}
+    </button>
+  </mat-card-actions>
+</mat-card>
