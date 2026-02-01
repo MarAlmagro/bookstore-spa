@@ -26,15 +26,16 @@
         <span class="language-text">{{ getCurrentLanguageName() }}</span>
       </button>
       <mat-menu #languageMenu="matMenu">
-        <button 
-          mat-menu-item 
-          *ngFor="let lang of availableLanguages"
-          (click)="changeLanguage(lang.code)"
-          [class.active-language]="currentLang === lang.code"
-          [attr.data-testid]="'language-' + lang.code">
-          <mat-icon>{{ currentLang === lang.code ? 'check' : '' }}</mat-icon>
-          <span>{{ lang.name }}</span>
-        </button>
+        @for (lang of availableLanguages; track lang.code) {
+          <button 
+            mat-menu-item 
+            (click)="changeLanguage(lang.code)"
+            [class.active-language]="currentLang === lang.code"
+            [attr.data-testid]="'language-' + lang.code">
+            <mat-icon>{{ currentLang === lang.code ? 'check' : '' }}</mat-icon>
+            <span>{{ lang.name }}</span>
+          </button>
+        }
       </mat-menu>
     </div>
   </div>

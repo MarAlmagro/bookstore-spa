@@ -1,27 +1,26 @@
 @use '@angular/material' as mat;
 
+$bookstore-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+$bookstore-accent: mat.m2-define-palette(mat.$m2-blue-grey-palette, 700, 500, 900);
+$bookstore-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$bookstore-light-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $bookstore-primary,
+    accent: $bookstore-accent,
+    warn: $bookstore-warn,
+  )
+));
+
+$bookstore-dark-theme: mat.m2-define-dark-theme((
+  color: (
+    primary: $bookstore-primary,
+    accent: $bookstore-accent,
+    warn: $bookstore-warn,
+  )
+));
+
 @include mat.core();
-
-$bookstore-primary: mat-palette($mat-indigo);
-$bookstore-accent: mat-palette($mat-blue-grey, 700, 500, 900);
-$bookstore-warn: mat-palette($mat-red);
-
-$bookstore-light-theme: mat-light-theme((
-  color: (
-    primary: $bookstore-primary,
-    accent: $bookstore-accent,
-    warn: $bookstore-warn,
-  )
-));
-
-$bookstore-dark-theme: mat-dark-theme((
-  color: (
-    primary: $bookstore-primary,
-    accent: $bookstore-accent,
-    warn: $bookstore-warn,
-  )
-));
-
 @include mat.all-component-themes($bookstore-light-theme);
 
 .dark-theme {
