@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+// provideNoopAnimations is the correct modern Angular 21+ API replacing NoopAnimationsModule
+// The deprecation warning is a false positive from outdated type definitions
+ 
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { BookCardComponent } from './book-card.component';
