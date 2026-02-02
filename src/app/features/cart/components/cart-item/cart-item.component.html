@@ -1,0 +1,48 @@
+<mat-card class="cart-item" [attr.data-testid]="'cart-item-' + item.book.id">
+  <mat-card-content class="cart-item-content">
+    <div class="item-info">
+      <h3 class="item-title" [attr.data-testid]="'cart-item-' + item.book.id + '-title'">
+        {{ item.book.title }}
+      </h3>
+      <p class="item-author">{{ item.book.author }}</p>
+      <p class="item-price">{{ item.book.price | currency }} {{ 'cart.item.each' | translate }}</p>
+    </div>
+
+    <div class="quantity-controls">
+      <button
+        mat-icon-button
+        (click)="onDecrease()"
+        [disabled]="item.quantity <= 1"
+        [attr.aria-label]="'cart.item.decrease' | translate"
+        [attr.data-testid]="'cart-item-' + item.book.id + '-qty-decrease'">
+        <mat-icon>remove</mat-icon>
+      </button>
+      <span 
+        class="quantity-value" 
+        [attr.data-testid]="'cart-item-' + item.book.id + '-qty-input'">
+        {{ item.quantity }}
+      </span>
+      <button
+        mat-icon-button
+        (click)="onIncrease()"
+        [disabled]="item.quantity >= item.book.stock"
+        [attr.aria-label]="'cart.item.increase' | translate"
+        [attr.data-testid]="'cart-item-' + item.book.id + '-qty-increase'">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="item-subtotal" [attr.data-testid]="'cart-item-' + item.book.id + '-subtotal'">
+      {{ subtotal | currency }}
+    </div>
+
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="onRemove()"
+      [attr.aria-label]="'cart.item.remove' | translate"
+      [attr.data-testid]="'cart-item-' + item.book.id + '-remove'">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

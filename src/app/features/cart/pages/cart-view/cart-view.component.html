@@ -1,0 +1,35 @@
+<main class="cart-page" data-testid="cart-view">
+  <h1>{{ 'cart.title' | translate }}</h1>
+
+  @if (items$ | async; as items) {
+    @if (items.length > 0) {
+      <div class="cart-layout">
+        <div class="cart-items">
+          @for (item of items; track trackByBookId($index, item)) {
+            <app-cart-item
+              [item]="item"
+              (quantityChange)="onQuantityChange($event)"
+              (remove)="onRemove($event)">
+            </app-cart-item>
+          }
+        </div>
+
+        <aside class="cart-sidebar">
+          <app-cart-summary
+            [itemCount]="(itemCount$ | async) ?? 0"
+            [subtotal]="(total$ | async) ?? 0"
+            (checkout)="onCheckout()">
+          </app-cart-summary>
+        </aside>
+      </div>
+    } @else {
+      <app-empty-state
+        icon="shopping_cart"
+        [message]="'cart.empty.message' | translate"
+        [actionLabel]="'cart.empty.action' | translate"
+        (actionClick)="browseCatalog()"
+        data-testid="cart-empty-state">
+      </app-empty-state>
+    }
+  }
+</main>

@@ -1,0 +1,59 @@
+<main class="checkout-page" data-testid="checkout-view">
+  <h1>{{ 'checkout.title' | translate }}</h1>
+
+  <div class="checkout-layout">
+    <section class="order-items">
+      <h2>{{ 'checkout.orderItems' | translate }}</h2>
+      <mat-card>
+        <mat-card-content>
+          <mat-list data-testid="checkout-item-list">
+            @for (item of items$ | async; track item.book.id) {
+              <mat-list-item>
+                <span matListItemTitle>{{ item.book.title }}</span>
+                <span matListItemLine>
+                  {{ 'checkout.qty' | translate }}: {{ item.quantity }} × {{ item.book.price | currency }}
+                </span>
+                <span matListItemMeta>{{ item.book.price * item.quantity | currency }}</span>
+              </mat-list-item>
+            }
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </section>
+
+    <aside class="order-summary">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ 'checkout.summary' | translate }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="summary-row total-row">
+            <span>{{ 'checkout.total' | translate }}</span>
+            <strong data-testid="checkout-total">{{ total$ | async | currency }}</strong>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            mat-button
+            (click)="goBack()"
+            [disabled]="loading$ | async"
+            data-testid="checkout-back-btn">
+            {{ 'common.back' | translate }}
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onConfirmOrder()"
+            [disabled]="loading$ | async"
+            data-testid="checkout-confirm-btn">
+            @if (loading$ | async) {
+              <mat-spinner diameter="20"></mat-spinner>
+            } @else {
+              {{ 'checkout.confirm' | translate }}
+            }
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </aside>
+  </div>
+</main>
