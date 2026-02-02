@@ -1,0 +1,38 @@
+<mat-card
+  class="order-card"
+  [attr.data-testid]="'order-card-' + order.id">
+
+  <mat-card-header>
+    <mat-card-title>
+      {{ 'orders.orderNumber' | translate }} #{{ order.id | slice:0:8 }}
+    </mat-card-title>
+    <mat-card-subtitle [attr.data-testid]="'order-card-' + order.id + '-date'">
+      {{ formattedDate }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="order-info">
+      <span [attr.data-testid]="'order-card-' + order.id + '-item-count'">
+        {{ itemCount }} {{ 'orders.items' | translate }}
+      </span>
+      <span [attr.data-testid]="'order-card-' + order.id + '-total'">
+        {{ 'orders.total' | translate }}: {{ order.totalAmount | currency }}
+      </span>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <app-order-status-badge
+      [status]="order.status || 'PENDING'"
+      [attr.data-testid]="'order-card-' + order.id + '-status'">
+    </app-order-status-badge>
+    <button
+      mat-button
+      color="primary"
+      (click)="onViewDetails()"
+      [attr.data-testid]="'order-card-' + order.id + '-view-btn'">
+      {{ 'orders.viewDetails' | translate }}
+    </button>
+  </mat-card-actions>
+</mat-card>
