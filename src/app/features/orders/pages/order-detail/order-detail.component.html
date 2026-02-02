@@ -1,0 +1,68 @@
+<main class="order-detail-page" data-testid="order-detail-container">
+  <button 
+    mat-button 
+    (click)="goBack()"
+    data-testid="order-detail-back-btn"
+    [attr.aria-label]="'orders.detail.backToOrders' | translate">
+    <mat-icon>arrow_back</mat-icon>
+    {{ 'orders.detail.backToOrders' | translate }}
+  </button>
+
+  @if (loading$ | async) {
+    <div class="loading-container" data-testid="order-detail-loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    @if (order$ | async; as order) {
+      <mat-card class="order-detail-card">
+        <mat-card-header>
+          <mat-card-title data-testid="order-detail-id">
+            {{ 'orders.orderNumber' | translate }} #{{ order.id | slice:0:8 }}
+          </mat-card-title>
+          <mat-card-subtitle data-testid="order-detail-date">
+            {{ 'orders.detail.orderedOn' | translate }}: {{ formatDate(order.createdAt) }}
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="status-section" data-testid="order-detail-status">
+            <span class="label">{{ 'orders.detail.status' | translate }}:</span>
+            <app-order-status-badge [status]="order.status || 'PENDING'"></app-order-status-badge>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <section class="items-section">
+            <h3>{{ 'orders.detail.orderItems' | translate }}</h3>
+            <div class="items-list" data-testid="order-detail-items">
+              @for (item of order.items; track item.bookId) {
+                <div class="order-item" [attr.data-testid]="'order-detail-item-' + item.bookId">
+                  <div class="item-info">
+                    <span class="item-title">{{ item.bookTitle || 'Book #' + item.bookId }}</span>
+                    <span class="item-isbn">{{ item.bookIsbn }}</span>
+                  </div>
+                  <div class="item-details">
+                    <span class="item-qty">{{ 'orders.detail.quantity' | translate }}: {{ item.quantity }}</span>
+                    <span class="item-price">{{ item.price | currency }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+
+          <mat-divider></mat-divider>
+
+          <div class="total-section" data-testid="order-detail-total">
+            <span class="label">{{ 'orders.total' | translate }}:</span>
+            <span class="total-amount">{{ order.totalAmount | currency }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    } @else {
+      <div class="error-state" data-testid="order-detail-error">
+        <mat-icon>error_outline</mat-icon>
+        <p>{{ 'errors.notFound' | translate }}</p>
+      </div>
+    }
+  }
+</main>
