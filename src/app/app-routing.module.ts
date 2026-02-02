@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'cart',
     loadChildren: () => import('./features/cart/cart.module').then(m => m.CartModule)
   },
+  {
+    path: 'orders',
+    loadChildren: () => import('./features/orders/orders.module').then(m => m.OrdersModule)
+  },
   { path: '', redirectTo: 'books', pathMatch: 'full' }
 ];
 

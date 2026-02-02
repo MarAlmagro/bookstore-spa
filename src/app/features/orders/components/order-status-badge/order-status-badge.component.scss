@@ -1,0 +1,40 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  mat-icon {
+    font-size: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+.status-pending {
+  background-color: var(--color-warning, #ff9800);
+  color: #000;
+}
+
+.status-confirmed {
+  background-color: var(--color-info, #2196f3);
+  color: #fff;
+}
+
+.status-shipped {
+  background-color: #9c27b0;
+  color: #fff;
+}
+
+.status-delivered {
+  background-color: var(--color-success, #4caf50);
+  color: #fff;
+}
+
+.status-cancelled {
+  background-color: var(--color-error, #f44336);
+  color: #fff;
+}
