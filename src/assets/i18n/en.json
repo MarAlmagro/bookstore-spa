@@ -110,14 +110,40 @@
   },
   "cart": {
     "title": "Shopping Cart",
-    "empty": "Your cart is empty",
+    "empty": {
+      "message": "Your cart is empty",
+      "action": "Browse Books"
+    },
+    "item": {
+      "remove": "Remove item",
+      "each": "each",
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity"
+    },
+    "summary": {
+      "title": "Order Summary",
+      "items": "{{count}} items",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "free": "FREE",
+      "total": "Total"
+    },
     "subtotal": "Subtotal",
     "tax": "Tax",
     "total": "Total",
-    "checkout": "Checkout",
+    "checkout": "Proceed to Checkout",
     "continueShopping": "Continue Shopping",
     "remove": "Remove",
     "quantity": "Quantity"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "orderItems": "Order Items",
+    "summary": "Order Summary",
+    "qty": "Qty",
+    "total": "Total",
+    "confirm": "Place Order",
+    "success": "Order placed successfully!"
   },
   "errors": {
     "generic": "An error occurred. Please try again.",

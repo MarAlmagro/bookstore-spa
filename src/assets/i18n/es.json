@@ -110,7 +110,24 @@
   },
   "cart": {
     "title": "Carrito de Compras",
-    "empty": "Tu carrito está vacío",
+    "empty": {
+      "message": "Tu carrito está vacío",
+      "action": "Ver Libros"
+    },
+    "item": {
+      "remove": "Eliminar artículo",
+      "each": "c/u",
+      "decrease": "Disminuir cantidad",
+      "increase": "Aumentar cantidad"
+    },
+    "summary": {
+      "title": "Resumen del Pedido",
+      "items": "{{count}} artículos",
+      "subtotal": "Subtotal",
+      "shipping": "Envío",
+      "free": "GRATIS",
+      "total": "Total"
+    },
     "subtotal": "Subtotal",
     "tax": "IVA",
     "total": "Total",
@@ -118,6 +135,15 @@
     "continueShopping": "Continuar Comprando",
     "remove": "Eliminar",
     "quantity": "Cantidad"
+  },
+  "checkout": {
+    "title": "Finalizar Compra",
+    "orderItems": "Artículos del Pedido",
+    "summary": "Resumen del Pedido",
+    "qty": "Cant",
+    "total": "Total",
+    "confirm": "Realizar Pedido",
+    "success": "¡Pedido realizado con éxito!"
   },
   "errors": {
     "generic": "Ha ocurrido un error. Por favor, inténtalo de nuevo.",
