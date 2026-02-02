@@ -53,26 +53,26 @@ describe('CartSummaryComponent', () => {
   });
 
   it('should enable checkout button when itemCount > 0 and canCheckout is true', () => {
-    component.itemCount = 5;
-    component.canCheckout = true;
+    fixture.componentRef.setInput('itemCount', 5);
+    fixture.componentRef.setInput('canCheckout', true);
     fixture.detectChanges();
-    
+
     const button = fixture.nativeElement.querySelector('[data-testid="cart-summary-checkout-btn"]');
     expect(button.disabled).toBe(false);
   });
 
   it('should display subtotal', () => {
-    component.subtotal = 59.99;
+    fixture.componentRef.setInput('subtotal', 59.99);
     fixture.detectChanges();
-    
+
     const subtotalElement = fixture.nativeElement.querySelector('[data-testid="cart-summary-subtotal"]');
     expect(subtotalElement.textContent).toContain('59.99');
   });
 
   it('should display total', () => {
-    component.subtotal = 59.99;
+    fixture.componentRef.setInput('subtotal', 59.99);
     fixture.detectChanges();
-    
+
     const totalElement = fixture.nativeElement.querySelector('[data-testid="cart-summary-total"]');
     expect(totalElement.textContent).toContain('59.99');
   });
