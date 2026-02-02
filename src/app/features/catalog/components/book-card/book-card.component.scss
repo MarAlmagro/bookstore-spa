@@ -131,17 +131,17 @@ mat-card-actions {
   }
 
   .stock-status {
-    background: rgba(46, 125, 50, 0.25);
-    color: #a5d6a7;
+    background: rgba(42, 101, 42, 0.25);
+    color: #ffffff;
 
     &.out-of-stock {
-      background: rgba(198, 40, 40, 0.35);
-      color: #ef5350;
+      background: rgba(169, 35, 35, 0.35);
+      color: #ffffff;
     }
 
     &.low-stock {
-      background: rgba(239, 108, 0, 0.35);
-      color: #ffb74d;
+      background: rgba(143, 64, 0, 0.35);
+      color: #ffffff;
     }
   }
 }
