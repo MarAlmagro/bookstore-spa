@@ -95,18 +95,30 @@
   },
   "orders": {
     "title": "My Orders",
-    "orderNumber": "Order Number",
+    "orderNumber": "Order",
     "date": "Date",
-    "status": "Status",
     "total": "Total",
-    "items": "Items",
+    "items": "items",
     "viewOrder": "View Order",
+    "viewDetails": "View Details",
     "noOrders": "You have no orders",
-    "pending": "Pending",
-    "processing": "Processing",
-    "shipped": "Shipped",
-    "delivered": "Delivered",
-    "cancelled": "Cancelled"
+    "empty": {
+      "message": "You haven't placed any orders yet",
+      "action": "Start Shopping"
+    },
+    "detail": {
+      "backToOrders": "Back to Orders",
+      "orderedOn": "Ordered on",
+      "orderItems": "Order Items",
+      "quantity": "Qty"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "SHIPPED": "Shipped",
+      "DELIVERED": "Delivered",
+      "CANCELLED": "Cancelled"
+    }
   },
   "cart": {
     "title": "Shopping Cart",

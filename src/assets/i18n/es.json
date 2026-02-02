@@ -95,18 +95,30 @@
   },
   "orders": {
     "title": "Mis Pedidos",
-    "orderNumber": "Número de Pedido",
+    "orderNumber": "Pedido",
     "date": "Fecha",
-    "status": "Estado",
     "total": "Total",
-    "items": "Artículos",
+    "items": "artículos",
     "viewOrder": "Ver Pedido",
+    "viewDetails": "Ver Detalles",
     "noOrders": "No tienes pedidos",
-    "pending": "Pendiente",
-    "processing": "Procesando",
-    "shipped": "Enviado",
-    "delivered": "Entregado",
-    "cancelled": "Cancelado"
+    "empty": {
+      "message": "Aún no has realizado ningún pedido",
+      "action": "Empezar a Comprar"
+    },
+    "detail": {
+      "backToOrders": "Volver a Pedidos",
+      "orderedOn": "Realizado el",
+      "orderItems": "Artículos del Pedido",
+      "quantity": "Cant"
+    },
+    "status": {
+      "PENDING": "Pendiente",
+      "CONFIRMED": "Confirmado",
+      "SHIPPED": "Enviado",
+      "DELIVERED": "Entregado",
+      "CANCELLED": "Cancelado"
+    }
   },
   "cart": {
     "title": "Carrito de Compras",
