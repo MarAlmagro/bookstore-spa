@@ -61,6 +61,9 @@ test-results/
 test-logs/
 *.test.log
 
+# Reports
+reports/
+
 # Playwright
 /playwright-report/
 /test-results/
@@ -69,6 +72,10 @@ test-logs/
 
 # Docker
 docker-compose.override.yml
+
+# SonarQube
+.sonar/
+.scannerwork/
 
 # Coding Agents
 .claude/
