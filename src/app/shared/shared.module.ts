@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { EmptyStateComponent } from './components/empty-state/empty-state.component';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -17,7 +19,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    EmptyStateComponent
   ],
   exports: [
     TranslateModule,
@@ -25,7 +28,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
+    EmptyStateComponent
   ]
 })
 export class SharedModule { }

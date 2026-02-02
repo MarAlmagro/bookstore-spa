@@ -1,13 +1,47 @@
 <mat-toolbar color="primary" class="header-toolbar">
   <div class="toolbar-container">
     <div class="logo-section">
-      <button mat-icon-button aria-label="Menu" data-testid="header-menu-button">
+      <a routerLink="/books" class="logo-link" data-testid="header-home-link">
         <mat-icon>menu_book</mat-icon>
-      </button>
-      <span class="app-title" data-testid="header-app-title">{{ 'app.title' | translate }}</span>
+        <span class="app-title" data-testid="header-app-title">{{ 'app.title' | translate }}</span>
+      </a>
+    </div>
+
+    <div class="search-section">
+      <mat-form-field appearance="outline" class="search-field">
+        <input 
+          matInput 
+          [formControl]="searchControl"
+          [placeholder]="'catalog.search' | translate"
+          (keydown.enter)="onSearchSubmit()"
+          data-testid="header-search-input"
+          [attr.aria-label]="'catalog.search' | translate">
+        <mat-icon matPrefix>search</mat-icon>
+        @if (searchControl.value) {
+          <button 
+            matSuffix 
+            mat-icon-button 
+            (click)="clearSearch()"
+            data-testid="header-search-clear"
+            [attr.aria-label]="'common.close' | translate">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
     </div>
 
     <div class="toolbar-actions">
+      <button 
+        mat-icon-button 
+        routerLink="/cart"
+        [matTooltip]="'cart.title' | translate"
+        [attr.aria-label]="'cart.title' | translate"
+        data-testid="header-cart-btn"
+        [matBadge]="(cartItemCount$ | async) || 0"
+        [matBadgeHidden]="(cartItemCount$ | async) === 0"
+        matBadgeColor="accent">
+        <mat-icon>shopping_cart</mat-icon>
+      </button>
       <button 
         mat-icon-button 
         [matTooltip]="(isDarkMode$ | async) ? ('header.lightMode' | translate) : ('header.darkMode' | translate)"

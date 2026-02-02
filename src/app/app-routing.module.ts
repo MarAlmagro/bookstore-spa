@@ -6,7 +6,11 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   },
-  { path: '', redirectTo: '/auth/login', pathMatch: 'full' }
+  {
+    path: 'books',
+    loadChildren: () => import('./features/catalog/catalog.module').then(m => m.CatalogModule)
+  },
+  { path: '', redirectTo: 'books', pathMatch: 'full' }
 ];
 
 @NgModule({

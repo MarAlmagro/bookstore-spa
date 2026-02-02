@@ -1,0 +1,137 @@
+<main class="book-detail-page" data-testid="book-detail-container">
+  <button 
+    mat-button 
+    (click)="goBack()"
+    data-testid="book-detail-back-btn"
+    class="back-btn">
+    <mat-icon>arrow_back</mat-icon>
+    {{ 'catalog.detail.backToCatalog' | translate }}
+  </button>
+
+  @if (loading$ | async) {
+    <div class="loading-container" data-testid="book-detail-loading">
+      <mat-spinner></mat-spinner>
+      <p>{{ 'catalog.loading' | translate }}</p>
+    </div>
+  } @else if (error$ | async; as error) {
+    <div class="error-state" data-testid="book-detail-error">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h2>{{ 'errors.notFound' | translate }}</h2>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" (click)="goBack()">
+        {{ 'common.back' | translate }}
+      </button>
+    </div>
+  } @else {
+    @if (book$ | async; as book) {
+      <div class="book-detail-content">
+        <div class="book-cover-section">
+          <div class="book-cover">
+            <mat-icon class="book-placeholder-icon">menu_book</mat-icon>
+          </div>
+          <span 
+            class="category-badge"
+            data-testid="book-detail-category">
+            {{ book.category }}
+          </span>
+        </div>
+
+        <div class="book-info-section">
+          <h1 
+            class="book-title" 
+            data-testid="book-detail-title">
+            {{ book.title }}
+          </h1>
+
+          <p 
+            class="book-author" 
+            data-testid="book-detail-author">
+            {{ 'book.author' | translate }}: {{ book.author }}
+          </p>
+
+          <div class="book-meta">
+            <div class="meta-item">
+              <span class="meta-label">{{ 'catalog.detail.isbn' | translate }}:</span>
+              <span 
+                class="meta-value" 
+                data-testid="book-detail-isbn">
+                {{ book.isbn }}
+              </span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">{{ 'catalog.detail.category' | translate }}:</span>
+              <span class="meta-value">{{ book.category }}</span>
+            </div>
+          </div>
+
+          <div class="price-section">
+            <span 
+              class="book-price" 
+              data-testid="book-detail-price">
+              {{ book.price | currency:'USD':'symbol':'1.2-2' }}
+            </span>
+            <span 
+              class="stock-status"
+              [class.out-of-stock]="book.stock <= 0"
+              [class.low-stock]="book.stock > 0 && book.stock <= 5">
+              @if (book.stock <= 0) {
+                {{ 'book.outOfStock' | translate }}
+              } @else if (book.stock <= 5) {
+                {{ 'book.lowStock' | translate }} ({{ book.stock }})
+              } @else {
+                {{ 'book.inStock' | translate }} ({{ book.stock }})
+              }
+            </span>
+          </div>
+
+          <div class="quantity-section">
+            <span class="quantity-label" id="quantity-label">{{ 'catalog.detail.quantity' | translate }}:</span>
+            <div class="quantity-controls">
+              <button 
+                mat-icon-button 
+                (click)="decreaseQuantity()"
+                [disabled]="quantity <= 1"
+                data-testid="book-detail-qty-decrease"
+                aria-label="Decrease quantity">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <input 
+                type="number" 
+                [value]="quantity" 
+                readonly
+                class="quantity-input"
+                data-testid="book-detail-qty-input"
+                [attr.aria-label]="'catalog.detail.quantity' | translate">
+              <button 
+                mat-icon-button 
+                (click)="increaseQuantity(book)"
+                [disabled]="quantity >= book.stock"
+                data-testid="book-detail-qty-increase"
+                aria-label="Increase quantity">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <button 
+            mat-raised-button 
+            color="primary"
+            class="add-to-cart-btn"
+            [disabled]="book.stock <= 0"
+            (click)="addToCart(book)"
+            data-testid="book-detail-add-cart">
+            <mat-icon>add_shopping_cart</mat-icon>
+            {{ 'catalog.addToCart' | translate }}
+          </button>
+
+          @if (book.description) {
+            <div class="description-section">
+              <h2>{{ 'catalog.detail.description' | translate }}</h2>
+              <p data-testid="book-detail-description">{{ book.description }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</main>

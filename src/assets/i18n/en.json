@@ -45,6 +45,7 @@
   },
   "catalog": {
     "title": "Book Catalog",
+    "categoryTitle": "{{category}} Books",
     "search": "Search books...",
     "searchBy": "Search by",
     "allBooks": "All Books",
@@ -54,9 +55,27 @@
     "price": "Price",
     "stock": "Stock",
     "addToCart": "Add to Cart",
+    "addedToCart": "\"{{title}}\" added to cart",
     "viewDetails": "View Details",
+    "viewAll": "View all books",
+    "noBooks": "No books available at the moment",
     "noResults": "No books found",
-    "loading": "Loading..."
+    "noSearchResults": "No results found for \"{{query}}\"",
+    "searchResults": "Search results for \"{{query}}\"",
+    "resultsCount": "{{count}} book(s) found",
+    "loading": "Loading...",
+    "filters": {
+      "category": "Category",
+      "allCategories": "All Categories",
+      "clear": "Clear filters"
+    },
+    "detail": {
+      "backToCatalog": "Back to Catalog",
+      "isbn": "ISBN",
+      "category": "Category",
+      "quantity": "Quantity",
+      "description": "Description"
+    }
   },
   "book": {
     "title": "Title",
