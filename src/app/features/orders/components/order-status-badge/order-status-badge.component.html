@@ -1,0 +1,7 @@
+<span 
+  class="status-badge" 
+  [ngClass]="config.class"
+  [attr.data-testid]="'order-status-' + status">
+  <mat-icon>{{ config.icon }}</mat-icon>
+  <span>{{ config.translationKey | translate }}</span>
+</span>
