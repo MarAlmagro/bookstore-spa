@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 import { CartItemComponent } from './cart-item.component';
 import { CartItem } from '@app/models';
 
@@ -26,7 +26,7 @@ describe('CartItemComponent', () => {
       imports: [
         CartItemComponent,
         TranslateModule.forRoot(),
-        NoopAnimationsModule
+        CommonModule
       ]
     }).compileComponents();
 

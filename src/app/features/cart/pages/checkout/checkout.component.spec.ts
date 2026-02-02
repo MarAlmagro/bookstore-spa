@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, of } from 'rxjs';
 import { CheckoutComponent } from './checkout.component';
@@ -79,8 +78,7 @@ describe('CheckoutComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CheckoutComponent,
-        TranslateModule.forRoot(),
-        NoopAnimationsModule
+        TranslateModule.forRoot()
       ],
       providers: [
         { provide: CartService, useValue: cartServiceMock },

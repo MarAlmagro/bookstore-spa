@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CartSummaryComponent } from './cart-summary.component';
 
 describe('CartSummaryComponent', () => {
@@ -11,8 +10,7 @@ describe('CartSummaryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CartSummaryComponent,
-        TranslateModule.forRoot(),
-        NoopAnimationsModule
+        TranslateModule.forRoot()
       ]
     }).compileComponents();
 

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
 import { CartViewComponent } from './cart-view.component';
 import { CartService } from '@app/core/services/cart.service';
@@ -59,8 +58,7 @@ describe('CartViewComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CartViewComponent,
-        TranslateModule.forRoot(),
-        NoopAnimationsModule
+        TranslateModule.forRoot()
       ],
       providers: [
         { provide: CartService, useValue: cartServiceMock },

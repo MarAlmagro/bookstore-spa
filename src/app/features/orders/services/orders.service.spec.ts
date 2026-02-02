@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { OrdersService } from './orders.service';
 import { Order, CreateOrderRequest } from '@app/models';
 import { environment } from '@environments/environment';
@@ -21,8 +22,7 @@ describe('OrdersService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [OrdersService]
+      providers: [provideHttpClient(), provideHttpClientTesting(), OrdersService]
     });
     service = TestBed.inject(OrdersService);
     httpMock = TestBed.inject(HttpTestingController);
