@@ -1,0 +1,50 @@
+<mat-card class="cart-summary" data-testid="cart-summary-container">
+  <mat-card-header>
+    <mat-card-title>{{ 'cart.summary.title' | translate }}</mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content>
+    <div class="summary-row">
+      <span data-testid="cart-summary-item-count">
+        {{ 'cart.summary.items' | translate:{ count: itemCount } }}
+      </span>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="summary-row">
+      <span>{{ 'cart.summary.subtotal' | translate }}</span>
+      <span data-testid="cart-summary-subtotal">{{ subtotal | currency }}</span>
+    </div>
+    
+    <div class="summary-row">
+      <span>{{ 'cart.summary.shipping' | translate }}</span>
+      <span data-testid="cart-summary-shipping">
+        @if (shipping === 0) {
+          {{ 'cart.summary.free' | translate }}
+        } @else {
+          {{ shipping | currency }}
+        }
+      </span>
+    </div>
+    
+    <mat-divider></mat-divider>
+    
+    <div class="summary-row total-row">
+      <span>{{ 'cart.summary.total' | translate }}</span>
+      <strong data-testid="cart-summary-total">{{ total | currency }}</strong>
+    </div>
+  </mat-card-content>
+  
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      class="checkout-btn"
+      [disabled]="!canCheckout || itemCount === 0"
+      (click)="onCheckout()"
+      data-testid="cart-summary-checkout-btn">
+      {{ 'cart.checkout' | translate }}
+    </button>
+  </mat-card-actions>
+</mat-card>
