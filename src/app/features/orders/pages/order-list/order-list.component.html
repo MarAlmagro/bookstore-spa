@@ -1,0 +1,30 @@
+<main class="orders-page" data-testid="orders-list">
+  <h1>{{ 'orders.title' | translate }}</h1>
+
+  @if (loading$ | async) {
+    <div class="loading-container" data-testid="orders-loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    @if (orders$ | async; as orders) {
+      @if (orders.length > 0) {
+        <div class="orders-list">
+          @for (order of orders; track trackByOrderId($index, order)) {
+            <app-order-card
+              [order]="order"
+              (viewDetails)="onViewDetails($event)">
+            </app-order-card>
+          }
+        </div>
+      } @else {
+        <app-empty-state
+          icon="receipt_long"
+          [message]="'orders.empty.message' | translate"
+          [actionLabel]="'orders.empty.action' | translate"
+          (actionClick)="browseCatalog()"
+          data-testid="orders-empty-state">
+        </app-empty-state>
+      }
+    }
+  }
+</main>
