@@ -13,38 +13,34 @@ if (environment.production) {
   enableProdMode();
 }
 
-try {
-  await bootstrapApplication(AppComponent, {
-    providers: [
-      provideHttpClient(withInterceptorsFromDi()),
-      importProvidersFrom(
-        BrowserModule,
-        AppRoutingModule,
-        TranslateModule.forRoot({
-          defaultLanguage: 'en'
-        })
-      ),
-      provideTranslateHttpLoader({
-        prefix: './assets/i18n/',
-        suffix: '.json'
-      }),
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: MockInterceptor,
-        multi: true
-      },
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthInterceptor,
-        multi: true
-      },
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: ErrorInterceptor,
-        multi: true
-      }
-    ]
-  });
-} catch (err) {
-  console.error(err);
-}
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    importProvidersFrom(
+      BrowserModule,
+      AppRoutingModule,
+      TranslateModule.forRoot({
+        defaultLanguage: 'en'
+      })
+    ),
+    provideTranslateHttpLoader({
+      prefix: './assets/i18n/',
+      suffix: '.json'
+    }),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MockInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }
+  ]
+}).catch(err => console.error(err));

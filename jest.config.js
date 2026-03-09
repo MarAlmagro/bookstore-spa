@@ -8,6 +8,7 @@ module.exports = {
     'src/app/**/*.ts',
     '!src/app/**/*.module.ts',
     '!src/app/**/*.routes.ts',
+    '!src/app/**/index.ts',
     '!src/main.ts'
   ],
   coverageThreshold: {

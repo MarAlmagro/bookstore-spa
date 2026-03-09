@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, of, switchMap } from 'rxjs';
 import { CheckoutComponent } from './checkout.component';
 import { CartService } from '@app/core/services/cart.service';
 import { AuthService } from '@app/core/services/auth.service';
@@ -129,6 +129,33 @@ describe('CheckoutComponent', () => {
   it('should set loading to true when confirming order', () => {
     component.onConfirmOrder();
     expect(component.loading$.value).toBe(true);
+  });
+
+  it('should set loading to false on order creation error', () => {
+    const error$ = new BehaviorSubject<never>(undefined as never);
+    ordersServiceMock.createOrder = jest.fn().mockReturnValue(error$.asObservable().pipe(
+      switchMap(() => { throw new Error('Server error'); })
+    ));
+
+    component.onConfirmOrder();
+    expect(component.loading$.value).toBe(false);
+  });
+
+  it('should set loading to false when user is null on confirm', () => {
+    authServiceMock.user$ = new BehaviorSubject<User | null>(null).asObservable();
+
+    // Recreate component with null user
+    fixture = TestBed.createComponent(CheckoutComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+
+    component.onConfirmOrder();
+    expect(component.loading$.value).toBe(false);
+  });
+
+  it('should not redirect when cart has items on init', () => {
+    component.ngOnInit();
+    expect(routerMock.navigate).not.toHaveBeenCalled();
   });
 
   it('should navigate back to cart on goBack', () => {

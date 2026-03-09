@@ -126,6 +126,73 @@ describe('AuthService', () => {
     });
   });
 
+  describe('register error handling', () => {
+    it('should handle register error and clear auth', (done) => {
+      const request: RegisterRequest = {
+        email: 'new@test.com',
+        password: 'password',
+        firstName: 'New',
+        lastName: 'User'
+      };
+
+      service.register(request).subscribe({
+        error: (error) => {
+          expect(error.status).toBe(400);
+          expect(service.getAccessToken()).toBeNull();
+          done();
+        }
+      });
+
+      const req = httpMock.expectOne(`${environment.apiUrl}${API_ENDPOINTS.AUTH.REGISTER}`);
+      req.flush({ message: 'Email already exists' }, { status: 400, statusText: 'Bad Request' });
+    });
+  });
+
+  describe('initializeAuth', () => {
+    it('should attempt refresh when refresh token exists in storage', () => {
+      localStorage.setItem('refresh_token', 'stored-token');
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [provideHttpClient(), provideHttpClientTesting(), AuthService]
+      });
+      const newService = TestBed.inject(AuthService);
+      const newHttpMock = TestBed.inject(HttpTestingController);
+
+      const req = newHttpMock.expectOne(`${environment.apiUrl}${API_ENDPOINTS.AUTH.REFRESH}`);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({ refreshToken: 'stored-token' });
+
+      req.flush({
+        token: 'new-token',
+        refreshToken: 'new-refresh',
+        user: { id: 1, email: 'test@test.com', firstName: 'Test', lastName: 'User', role: 'CUSTOMER' }
+      });
+
+      expect(newService.getAccessToken()).toBe('new-token');
+      newHttpMock.verify();
+    });
+
+    it('should clear auth when refresh fails during initialization', async () => {
+      localStorage.setItem('refresh_token', 'stored-token');
+
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [provideHttpClient(), provideHttpClientTesting(), AuthService]
+      });
+      const newService = TestBed.inject(AuthService);
+      const newHttpMock = TestBed.inject(HttpTestingController);
+
+      const req = newHttpMock.expectOne(`${environment.apiUrl}${API_ENDPOINTS.AUTH.REFRESH}`);
+      req.flush({ message: 'Token expired' }, { status: 401, statusText: 'Unauthorized' });
+
+      expect(newService.getAccessToken()).toBeNull();
+      const isAuth = await firstValueFrom(newService.isAuthenticated$);
+      expect(isAuth).toBe(false);
+      newHttpMock.verify();
+    });
+  });
+
   describe('refreshToken', () => {
     it('should refresh token when refresh token exists', (done) => {
       localStorage.setItem('refresh_token', 'refresh-token');
