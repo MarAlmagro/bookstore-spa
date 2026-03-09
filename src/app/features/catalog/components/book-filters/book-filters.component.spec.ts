@@ -70,6 +70,16 @@ describe('BookFiltersComponent', () => {
     expect(component.hasActiveFilters()).toBe(true);
   });
 
+  it('should emit empty string when search value is null', (done) => {
+    jest.spyOn(component.searchChange, 'emit');
+
+    component.searchControl.setValue(null);
+    setTimeout(() => {
+      expect(component.searchChange.emit).toHaveBeenCalledWith('');
+      done();
+    }, 600);
+  });
+
   it('should set initial category from input', () => {
     component.selectedCategory = 'Tech';
     component.ngOnInit();

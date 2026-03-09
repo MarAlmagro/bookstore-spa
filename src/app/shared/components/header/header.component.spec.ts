@@ -86,6 +86,33 @@ describe('HeaderComponent', () => {
     expect(component.currentLang).toBeTruthy();
   });
 
+  describe('currentLang fallback', () => {
+    it('should fall back to es when getCurrentLang and getFallbackLang are both falsy', () => {
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        imports: [
+          HeaderComponent,
+          TranslateModule.forRoot()
+        ],
+        providers: [
+          provideNoopAnimations(),
+          provideRouter([]),
+          { provide: ThemeService, useValue: themeServiceMock },
+          { provide: AuthService, useValue: authServiceMock },
+          { provide: CartService, useValue: cartServiceMock }
+        ]
+      });
+
+      const freshTranslate = TestBed.inject(TranslateService);
+      jest.spyOn(freshTranslate, 'getCurrentLang').mockReturnValue('');
+      jest.spyOn(freshTranslate, 'getFallbackLang').mockReturnValue('');
+
+      const freshFixture = TestBed.createComponent(HeaderComponent);
+      const freshComponent = freshFixture.componentInstance;
+      expect(freshComponent.currentLang).toBe('es');
+    });
+  });
+
   describe('toggleTheme', () => {
     it('should call themeService.toggleTheme', () => {
       fixture.detectChanges();
