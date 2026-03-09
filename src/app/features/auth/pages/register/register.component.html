@@ -1,0 +1,111 @@
+<div class="register-container" data-testid="auth-register-container">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title>{{ 'auth.register' | translate }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" data-testid="auth-register-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'auth.firstName' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="firstName"
+            data-testid="auth-firstname-input"
+            autocomplete="given-name">
+          @if (registerForm.get('firstName')?.hasError('required')) {
+            <mat-error>{{ 'auth.errors.firstNameRequired' | translate }}</mat-error>
+          }
+          @if (registerForm.get('firstName')?.hasError('maxlength')) {
+            <mat-error>{{ 'auth.errors.firstNameMaxLength' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'auth.lastName' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="lastName"
+            data-testid="auth-lastname-input"
+            autocomplete="family-name">
+          @if (registerForm.get('lastName')?.hasError('required')) {
+            <mat-error>{{ 'auth.errors.lastNameRequired' | translate }}</mat-error>
+          }
+          @if (registerForm.get('lastName')?.hasError('maxlength')) {
+            <mat-error>{{ 'auth.errors.lastNameMaxLength' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'auth.email' | translate }}</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            data-testid="auth-email-input"
+            autocomplete="email">
+          @if (registerForm.get('email')?.hasError('required')) {
+            <mat-error>{{ 'auth.errors.emailRequired' | translate }}</mat-error>
+          }
+          @if (registerForm.get('email')?.hasError('email')) {
+            <mat-error>{{ 'auth.errors.emailInvalid' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'auth.password' | translate }}</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            data-testid="auth-password-input"
+            autocomplete="off">
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'auth.togglePassword' | translate"
+            data-testid="auth-toggle-password">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (registerForm.get('password')?.hasError('required')) {
+            <mat-error>{{ 'auth.errors.passwordRequired' | translate }}</mat-error>
+          }
+          @if (registerForm.get('password')?.hasError('minlength')) {
+            <mat-error>{{ 'auth.errors.passwordMinLength' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width submit-btn"
+          [disabled]="registerForm.invalid || (loading$ | async)"
+          data-testid="auth-register-submit">
+          @if (loading$ | async) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <span>{{ 'auth.register' | translate }}</span>
+          }
+        </button>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <span>{{ 'auth.hasAccount' | translate }}</span>
+      <a
+        mat-button
+        color="accent"
+        routerLink="/auth/login"
+        data-testid="auth-login-link">
+        {{ 'auth.login' | translate }}
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</div>

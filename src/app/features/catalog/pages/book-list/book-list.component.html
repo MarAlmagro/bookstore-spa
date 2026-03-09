@@ -1,0 +1,66 @@
+<main class="book-list-page" data-testid="catalog-book-list">
+  <h1 class="page-title">
+    @if (category) {
+      {{ 'catalog.categoryTitle' | translate:{ category: category } }}
+    } @else {
+      {{ 'catalog.title' | translate }}
+    }
+  </h1>
+
+  <app-book-filters
+    [categories]="(categories$ | async) || []"
+    [selectedCategory]="category"
+    (categoryChange)="onCategoryChange($event)"
+    (searchChange)="onSearch($event)"
+    data-testid="catalog-filters">
+  </app-book-filters>
+
+  @if (loading$ | async) {
+    <div class="loading-container" data-testid="catalog-loading">
+      <mat-spinner></mat-spinner>
+      <p>{{ 'catalog.loading' | translate }}</p>
+    </div>
+  } @else {
+    @if (books$ | async; as books) {
+      @if (books.length > 0) {
+        <div class="book-grid">
+          @for (book of books; track trackByBookId($index, book)) {
+            <app-book-card
+              [book]="book"
+              (addToCart)="onAddToCart($event)"
+              (viewDetails)="onViewDetails($event)"
+              [attr.data-testid]="'catalog-book-card-' + book.id">
+            </app-book-card>
+          }
+        </div>
+
+        @if (pagination$ | async; as pagination) {
+          @if (pagination && pagination.totalElements > 0) {
+            <mat-paginator
+              [length]="pagination.totalElements"
+              [pageSize]="pagination.size"
+              [pageIndex]="pagination.page"
+              [pageSizeOptions]="[10, 20, 50]"
+              (page)="onPageChange($event)"
+              data-testid="catalog-pagination"
+              aria-label="Select page">
+            </mat-paginator>
+          }
+        }
+      } @else {
+        <div class="empty-state" data-testid="catalog-empty-state">
+          <mat-icon class="empty-icon">menu_book</mat-icon>
+          <h2>{{ 'catalog.noResults' | translate }}</h2>
+          <p>{{ 'catalog.noBooks' | translate }}</p>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="onClearFilters()"
+            data-testid="catalog-view-all-btn">
+            {{ 'catalog.viewAll' | translate }}
+          </button>
+        </div>
+      }
+    }
+  }
+</main>

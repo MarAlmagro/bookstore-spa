@@ -1,0 +1,52 @@
+<main class="search-results-page" data-testid="catalog-search-results">
+  <div class="search-header">
+    <h1 class="page-title">
+      {{ 'catalog.searchResults' | translate:{ query: searchQuery } }}
+    </h1>
+    <button 
+      mat-button 
+      (click)="onClearSearch()"
+      data-testid="catalog-search-clear-btn">
+      <mat-icon>close</mat-icon>
+      {{ 'catalog.filters.clear' | translate }}
+    </button>
+  </div>
+
+  @if (loading$ | async) {
+    <div class="loading-container" data-testid="catalog-search-loading">
+      <mat-spinner></mat-spinner>
+      <p>{{ 'catalog.loading' | translate }}</p>
+    </div>
+  } @else {
+    @if (books$ | async; as books) {
+      @if (books.length > 0) {
+        <p class="results-count">
+          {{ 'catalog.resultsCount' | translate:{ count: books.length } }}
+        </p>
+        <div class="book-grid">
+          @for (book of books; track trackByBookId($index, book)) {
+            <app-book-card
+              [book]="book"
+              (addToCart)="onAddToCart($event)"
+              (viewDetails)="onViewDetails($event)"
+              [attr.data-testid]="'catalog-search-book-card-' + book.id">
+            </app-book-card>
+          }
+        </div>
+      } @else {
+        <div class="empty-state" data-testid="catalog-search-empty">
+          <mat-icon class="empty-icon">search_off</mat-icon>
+          <h2>{{ 'catalog.noResults' | translate }}</h2>
+          <p>{{ 'catalog.noSearchResults' | translate:{ query: searchQuery } }}</p>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="onClearSearch()"
+            data-testid="catalog-search-view-all-btn">
+            {{ 'catalog.viewAll' | translate }}
+          </button>
+        </div>
+      }
+    }
+  }
+</main>

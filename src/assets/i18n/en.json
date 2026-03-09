@@ -1,0 +1,191 @@
+{
+  "app": {
+    "title": "Online Bookstore",
+    "welcome": "Welcome to our bookstore"
+  },
+  "header": {
+    "home": "Home",
+    "catalog": "Catalog",
+    "orders": "My Orders",
+    "profile": "Profile",
+    "login": "Login",
+    "logout": "Logout",
+    "language": "Language",
+    "theme": "Theme",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "togglePassword": "Toggle password visibility",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginSuccess": "Login successful",
+    "loginError": "Login error",
+    "registerSuccess": "Account created successfully!",
+    "registerError": "Registration error",
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "firstNameRequired": "First name is required",
+      "firstNameMaxLength": "First name is too long",
+      "lastNameRequired": "Last name is required",
+      "lastNameMaxLength": "Last name is too long",
+      "invalidCredentials": "Invalid email or password"
+    }
+  },
+  "catalog": {
+    "title": "Book Catalog",
+    "categoryTitle": "{{category}} Books",
+    "search": "Search books...",
+    "searchBy": "Search by",
+    "allBooks": "All Books",
+    "category": "Category",
+    "author": "Author",
+    "available": "Available",
+    "price": "Price",
+    "stock": "Stock",
+    "addToCart": "Add to Cart",
+    "addedToCart": "\"{{title}}\" added to cart",
+    "viewDetails": "View Details",
+    "viewAll": "View all books",
+    "noBooks": "No books available at the moment",
+    "noResults": "No books found",
+    "noSearchResults": "No results found for \"{{query}}\"",
+    "searchResults": "Search results for \"{{query}}\"",
+    "resultsCount": "{{count}} book(s) found",
+    "loading": "Loading...",
+    "filters": {
+      "category": "Category",
+      "allCategories": "All Categories",
+      "clear": "Clear filters"
+    },
+    "detail": {
+      "backToCatalog": "Back to Catalog",
+      "isbn": "ISBN",
+      "category": "Category",
+      "quantity": "Quantity",
+      "description": "Description"
+    }
+  },
+  "book": {
+    "title": "Title",
+    "author": "Author",
+    "isbn": "ISBN",
+    "category": "Category",
+    "price": "Price",
+    "stock": "Available Stock",
+    "description": "Description",
+    "publisher": "Publisher",
+    "publishDate": "Publication Date",
+    "pages": "Pages",
+    "language": "Language",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "lowStock": "Low Stock"
+  },
+  "orders": {
+    "title": "My Orders",
+    "orderNumber": "Order",
+    "date": "Date",
+    "total": "Total",
+    "items": "items",
+    "viewOrder": "View Order",
+    "viewDetails": "View Details",
+    "noOrders": "You have no orders",
+    "empty": {
+      "message": "You haven't placed any orders yet",
+      "action": "Start Shopping"
+    },
+    "detail": {
+      "backToOrders": "Back to Orders",
+      "orderedOn": "Ordered on",
+      "orderItems": "Order Items",
+      "quantity": "Qty"
+    },
+    "status": {
+      "PENDING": "Pending",
+      "CONFIRMED": "Confirmed",
+      "SHIPPED": "Shipped",
+      "DELIVERED": "Delivered",
+      "CANCELLED": "Cancelled"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": {
+      "message": "Your cart is empty",
+      "action": "Browse Books"
+    },
+    "item": {
+      "remove": "Remove item",
+      "each": "each",
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity"
+    },
+    "summary": {
+      "title": "Order Summary",
+      "items": "{{count}} items",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "free": "FREE",
+      "total": "Total"
+    },
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "remove": "Remove",
+    "quantity": "Quantity"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "orderItems": "Order Items",
+    "summary": "Order Summary",
+    "qty": "Qty",
+    "total": "Total",
+    "confirm": "Place Order",
+    "success": "Order placed successfully!"
+  },
+  "errors": {
+    "generic": "An error occurred. Please try again.",
+    "network": "Connection error. Check your internet connection.",
+    "notFound": "Resource not found",
+    "unauthorized": "Unauthorized. Please login.",
+    "forbidden": "You don't have permission to perform this action",
+    "validation": "Please check the entered data",
+    "serverError": "Server error. Please try again later.",
+    "badRequest": "Invalid request. Please check your input.",
+    "networkError": "Unable to connect. Please check your internet connection."
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "retry": "Retry"
+  }
+}

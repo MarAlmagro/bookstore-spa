@@ -1,0 +1,41 @@
+[
+  {
+    "id": "order-001",
+    "userId": 1,
+    "items": [
+      {
+        "bookId": 1,
+        "quantity": 2,
+        "price": 45.99,
+        "bookTitle": "Effective Java",
+        "bookIsbn": "9780134685991"
+      }
+    ],
+    "totalAmount": 91.98,
+    "status": "DELIVERED",
+    "createdAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "id": "order-002",
+    "userId": 1,
+    "items": [
+      {
+        "bookId": 2,
+        "quantity": 1,
+        "price": 29.99,
+        "bookTitle": "JavaScript: The Good Parts",
+        "bookIsbn": "9780596517748"
+      },
+      {
+        "bookId": 4,
+        "quantity": 1,
+        "price": 42.99,
+        "bookTitle": "Clean Code",
+        "bookIsbn": "9780132350884"
+      }
+    ],
+    "totalAmount": 72.98,
+    "status": "SHIPPED",
+    "createdAt": "2024-01-20T14:45:00Z"
+  }
+]

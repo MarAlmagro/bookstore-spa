@@ -1,0 +1,79 @@
+<div class="login-container" data-testid="auth-login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>{{ 'auth.login' | translate }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" data-testid="auth-login-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'auth.email' | translate }}</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            data-testid="auth-email-input"
+            autocomplete="email">
+          @if (loginForm.get('email')?.hasError('required')) {
+            <mat-error>{{ 'auth.errors.emailRequired' | translate }}</mat-error>
+          }
+          @if (loginForm.get('email')?.hasError('email')) {
+            <mat-error>{{ 'auth.errors.emailInvalid' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>{{ 'auth.password' | translate }}</mat-label>
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+            data-testid="auth-password-input"
+            autocomplete="off">
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="hidePassword = !hidePassword"
+            [attr.aria-label]="'auth.togglePassword' | translate"
+            data-testid="auth-toggle-password">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (loginForm.get('password')?.hasError('required')) {
+            <mat-error>{{ 'auth.errors.passwordRequired' | translate }}</mat-error>
+          }
+          @if (loginForm.get('password')?.hasError('minlength')) {
+            <mat-error>{{ 'auth.errors.passwordMinLength' | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="full-width submit-btn"
+          [disabled]="loginForm.invalid || (loading$ | async)"
+          data-testid="auth-login-submit">
+          @if (loading$ | async) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <span>{{ 'auth.login' | translate }}</span>
+          }
+        </button>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <span>{{ 'auth.noAccount' | translate }}</span>
+      <a
+        mat-button
+        color="accent"
+        routerLink="/auth/register"
+        data-testid="auth-register-link">
+        {{ 'auth.register' | translate }}
+      </a>
+    </mat-card-actions>
+  </mat-card>
+</div>
