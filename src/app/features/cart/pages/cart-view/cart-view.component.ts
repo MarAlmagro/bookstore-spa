@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { CartService } from '@app/core/services/cart.service';
 import { CartItem } from '@app/models';
@@ -13,7 +13,6 @@ import { EmptyStateComponent } from '@app/shared/components/empty-state/empty-st
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     TranslateModule,
     CartItemComponent,
     CartSummaryComponent,
