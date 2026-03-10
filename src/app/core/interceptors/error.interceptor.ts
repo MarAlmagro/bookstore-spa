@@ -5,6 +5,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -68,6 +69,11 @@ export class ErrorInterceptor implements HttpInterceptor {
       case 0:
         messageKey = 'errors.networkError';
         break;
+      default:
+        // Log detailed error for debugging, show generic message to user
+        if (!environment.production) {
+          console.error('HTTP Error:', error);
+        }
     }
 
     this.translate.get(messageKey).subscribe(message => {
