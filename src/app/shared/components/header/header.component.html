@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="header-toolbar">
+<mat-toolbar color="primary" class="header-toolbar" role="banner">
   <div class="toolbar-container">
     <div class="logo-section">
       <a routerLink="/books" class="logo-link" data-testid="header-home-link">
@@ -7,7 +7,7 @@
       </a>
     </div>
 
-    <div class="search-section">
+    <div class="search-section" role="search">
       <mat-form-field appearance="outline" class="search-field">
         <input 
           matInput 
@@ -30,7 +30,7 @@
       </mat-form-field>
     </div>
 
-    <div class="toolbar-actions">
+    <nav class="toolbar-actions" aria-label="Main navigation">
       <button 
         mat-icon-button 
         routerLink="/cart"
@@ -116,6 +116,6 @@
           <span class="login-text">{{ 'header.login' | translate }}</span>
         </button>
       }
-    </div>
+    </nav>
   </div>
 </mat-toolbar>
