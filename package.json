@@ -48,7 +48,7 @@
     "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.58.1",
     "@types/jest": "^30.0.0",
-    "angular-eslint": "21.2.0",
+    "angular-eslint": "21.3.0",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
     "jest": "^30.2.0",
