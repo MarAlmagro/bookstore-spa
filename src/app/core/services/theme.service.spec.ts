@@ -30,15 +30,19 @@ describe('ThemeService', () => {
   });
 
   it('should load dark theme from localStorage', () => {
-    localStorage.setItem('bookstore-theme', 'dark');
-    const newService = new ThemeService();
+    localStorage.setItem('bookstore_theme', 'dark');
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({ providers: [ThemeService] });
+    const newService = TestBed.inject(ThemeService);
     expect(newService.getCurrentTheme()).toBe(true);
     expect(document.body.classList.contains('dark-theme')).toBe(true);
   });
 
   it('should load light theme from localStorage', () => {
-    localStorage.setItem('bookstore-theme', 'light');
-    const newService = new ThemeService();
+    localStorage.setItem('bookstore_theme', 'light');
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({ providers: [ThemeService] });
+    const newService = TestBed.inject(ThemeService);
     expect(newService.getCurrentTheme()).toBe(false);
     expect(document.body.classList.contains('dark-theme')).toBe(false);
   });
@@ -66,7 +70,7 @@ describe('ThemeService', () => {
       const isDark = await firstValueFrom(service.isDarkMode$);
       expect(isDark).toBe(true);
       expect(document.body.classList.contains('dark-theme')).toBe(true);
-      expect(localStorage.getItem('bookstore-theme')).toBe('dark');
+      expect(localStorage.getItem('bookstore_theme')).toBe('dark');
     });
 
     it('should set light theme', async () => {
@@ -74,7 +78,7 @@ describe('ThemeService', () => {
       const isDark = await firstValueFrom(service.isDarkMode$);
       expect(isDark).toBe(false);
       expect(document.body.classList.contains('dark-theme')).toBe(false);
-      expect(localStorage.getItem('bookstore-theme')).toBe('light');
+      expect(localStorage.getItem('bookstore_theme')).toBe('light');
     });
   });
 
@@ -94,7 +98,7 @@ describe('ThemeService', () => {
       });
 
       service.setTheme(true);
-      expect(consoleSpy).toHaveBeenCalledWith('Failed to save theme preference:', expect.any(Error));
+      expect(consoleSpy).toHaveBeenCalledWith('Storage unavailable');
 
       consoleSpy.mockRestore();
     });
@@ -105,9 +109,10 @@ describe('ThemeService', () => {
         throw new Error('SecurityError');
       });
 
-      const newService = new ThemeService();
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({ providers: [ThemeService] });
+      const newService = TestBed.inject(ThemeService);
       expect(newService.getCurrentTheme()).toBe(false);
-      expect(consoleSpy).toHaveBeenCalledWith('Failed to load theme preference:', expect.any(Error));
 
       consoleSpy.mockRestore();
     });

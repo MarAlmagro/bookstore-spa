@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { SecureStorageService } from './secure-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private readonly THEME_KEY = 'bookstore-theme';
+  private readonly storage = inject(SecureStorageService);
+  private readonly THEME_KEY = 'theme';
   private readonly DARK_THEME_CLASS = 'dark-theme';
   
   private readonly isDarkModeSubject: BehaviorSubject<boolean>;
@@ -45,7 +47,7 @@ export class ThemeService {
 
   private saveThemeToStorage(isDark: boolean): void {
     try {
-      localStorage.setItem(this.THEME_KEY, isDark ? 'dark' : 'light');
+      this.storage.setItem(this.THEME_KEY, isDark ? 'dark' : 'light');
     } catch (error) {
       console.warn('Failed to save theme preference:', error);
     }
@@ -53,7 +55,7 @@ export class ThemeService {
 
   private loadThemeFromStorage(): boolean {
     try {
-      const savedTheme = localStorage.getItem(this.THEME_KEY);
+      const savedTheme = this.storage.getItem(this.THEME_KEY);
       if (savedTheme) {
         return savedTheme === 'dark';
       }
