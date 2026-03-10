@@ -2,6 +2,7 @@ import { Component, inject, OnInit, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from './core/services/theme.service';
+import { PerformanceService } from './core/services/performance.service';
 import { environment } from '../environments/environment';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { RouterModule } from '@angular/router';
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
 export class AppComponent implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly themeService = inject(ThemeService);
+  private readonly performanceService = inject(PerformanceService);
   private readonly destroyRef = inject(DestroyRef);
   title = 'bookstore-spa';
 
@@ -30,5 +32,9 @@ export class AppComponent implements OnInit {
     this.translate.use(langToUse || environment.defaultLanguage)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
+
+    if (environment.production) {
+      this.performanceService.measureCoreWebVitals();
+    }
   }
 }

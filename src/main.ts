@@ -1,5 +1,5 @@
 import { bootstrapApplication,  BrowserModule } from '@angular/platform-browser';
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { enableProdMode, ErrorHandler, importProvidersFrom } from '@angular/core';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AppComponent } from './app/app.component';
@@ -8,6 +8,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AuthInterceptor, ErrorInterceptor, MockInterceptor } from './app/core/interceptors';
+import { LoggingInterceptor } from './app/core/interceptors/logging.interceptor';
+import { GlobalErrorHandler } from './app/core/services/global-error-handler';
 
 if (environment.production) {
   enableProdMode();
@@ -27,6 +29,12 @@ bootstrapApplication(AppComponent, {
       prefix: './assets/i18n/',
       suffix: '.json'
     }),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MockInterceptor,
