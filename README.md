@@ -1,5 +1,10 @@
 # Bookstore SPA — User Frontend
 
+![Angular](https://img.shields.io/badge/Angular-21.1.2-red?logo=angular)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Tests](https://img.shields.io/badge/Tests-279%20passing-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-%3E80%25-brightgreen)
+
 A modern, responsive Angular single-page application for the Bookstore microservices platform. Built as a portfolio project to demonstrate full-stack development with a microservices architecture.
 
 > **AI Disclosure:** This project was developed with the assistance of AI coding tools (Windsurf Cascade and Claude). AI was used for code generation, architecture planning, documentation, and test scaffolding. All code was reviewed, validated, and curated by the developer. See [AI Tooling](#ai-tooling) for details.
