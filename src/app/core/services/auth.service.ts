@@ -5,12 +5,14 @@ import { tap, catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { AuthRequest, RegisterRequest, AuthResponse, User } from '@app/models';
 import { API_ENDPOINTS } from '../constants';
+import { SecureStorageService } from './secure-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private readonly storage = inject(SecureStorageService);
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly _user$ = new BehaviorSubject<User | null>(null);
   private readonly _isAuthenticated$ = new BehaviorSubject<boolean>(false);
@@ -24,7 +26,7 @@ export class AuthService {
   }
 
   private initializeAuth(): void {
-    const refreshToken = localStorage.getItem(this.REFRESH_TOKEN_KEY);
+    const refreshToken = this.storage.getItem(this.REFRESH_TOKEN_KEY);
     if (refreshToken) {
       this.refreshToken().subscribe({
         error: () => this.clearAuth()
@@ -59,7 +61,7 @@ export class AuthService {
   }
 
   refreshToken(): Observable<AuthResponse> {
-    const refreshToken = localStorage.getItem(this.REFRESH_TOKEN_KEY);
+    const refreshToken = this.storage.getItem(this.REFRESH_TOKEN_KEY);
     if (!refreshToken) {
       return of({} as AuthResponse);
     }
@@ -86,14 +88,14 @@ export class AuthService {
 
   private handleAuthResponse(response: AuthResponse): void {
     this.accessToken = response.token;
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, response.refreshToken);
+    this.storage.setItem(this.REFRESH_TOKEN_KEY, response.refreshToken);
     this._user$.next(response.user);
     this._isAuthenticated$.next(true);
   }
 
   private clearAuth(): void {
     this.accessToken = null;
-    localStorage.removeItem(this.REFRESH_TOKEN_KEY);
+    this.storage.removeItem(this.REFRESH_TOKEN_KEY);
     this._user$.next(null);
     this._isAuthenticated$.next(false);
   }
