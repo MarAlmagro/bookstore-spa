@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Order } from '@app/models';
 import { OrderStatusBadgeComponent } from '../order-status-badge/order-status-badge.component';
@@ -11,8 +11,13 @@ import { OrderStatusBadgeComponent } from '../order-status-badge/order-status-ba
   standalone: true,
   imports: [
     CommonModule,
-    MatCardModule,
-    MatButtonModule,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+    MatCardActions,
+    MatButton,
     TranslateModule,
     OrderStatusBadgeComponent
   ],

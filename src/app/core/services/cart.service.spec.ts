@@ -190,7 +190,9 @@ describe('CartService', () => {
       const cartData = [{ book: mockBook1, quantity: 2 }];
       localStorage.setItem('bookstore_cart', JSON.stringify(cartData));
 
-      const newService = new CartService();
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({ providers: [CartService] });
+      const newService = TestBed.inject(CartService);
       newService.items$.subscribe(items => {
         expect(items.length).toBe(1);
         expect(items[0].quantity).toBe(2);
@@ -200,7 +202,9 @@ describe('CartService', () => {
     it('should handle corrupted localStorage data', () => {
       localStorage.setItem('bookstore_cart', 'invalid-json');
 
-      const newService = new CartService();
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({ providers: [CartService] });
+      const newService = TestBed.inject(CartService);
       newService.items$.subscribe(items => {
         expect(items.length).toBe(0);
       });

@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { setupApiMocks } from './fixtures/api-mocks';
 
 test.describe('Cart Feature', () => {
   test.beforeEach(async ({ page }) => {
+    await setupApiMocks(page);
     // Clear localStorage before each test
     await page.goto('/');
     await page.evaluate(() => localStorage.clear());
@@ -28,6 +30,7 @@ test.describe('Cart Feature', () => {
 
   test.describe('Cart with Items', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       // Add a book to cart first
       await page.goto('/books');
       const firstCard = page.locator('[data-testid^="catalog-book-card-"]').first();
@@ -122,6 +125,7 @@ test.describe('Cart Feature', () => {
 
   test.describe('Checkout Flow', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       // Login first
       await page.goto('/auth/login');
       await page.fill('[data-testid="auth-email-input"]', 'customer@example.com');
@@ -198,6 +202,7 @@ test.describe('Cart Feature', () => {
 
   test.describe('Responsive Design', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       // Add item to cart
       await page.goto('/books');
       const firstCard = page.locator('[data-testid^="catalog-book-card-"]').first();
@@ -226,6 +231,7 @@ test.describe('Cart Feature', () => {
 
   test.describe('Accessibility', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       // Add item to cart
       await page.goto('/books');
       const firstCard = page.locator('[data-testid^="catalog-book-card-"]').first();

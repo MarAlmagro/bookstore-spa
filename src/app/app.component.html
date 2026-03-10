@@ -1,6 +1,13 @@
 <app-header></app-header>
 
-<main class="main-content">
+<main id="main-content" tabindex="-1" class="main-content">
   <router-outlet></router-outlet>
 </main>
+
+<div 
+  aria-live="polite" 
+  aria-atomic="true" 
+  class="sr-only"
+  id="announcer">
+</div>
 

@@ -41,7 +41,7 @@ describe('AuthService', () => {
       service.login(credentials).subscribe(response => {
         expect(response).toEqual(mockResponse);
         expect(service.getAccessToken()).toBe('access-token');
-        expect(localStorage.getItem('refresh_token')).toBe('refresh-token');
+        expect(localStorage.getItem('bookstore_refresh_token')).toBe('refresh-token');
         done();
       });
 
@@ -112,14 +112,14 @@ describe('AuthService', () => {
 
   describe('logout', () => {
     it('should clear token and user state', async () => {
-      localStorage.setItem('refresh_token', 'some-token');
+      localStorage.setItem('bookstore_refresh_token', 'some-token');
       service['accessToken'] = 'access-token';
       service['_user$'].next({ id: 1, email: 'test@test.com', firstName: 'Test', lastName: 'User', role: 'CUSTOMER' });
       service['_isAuthenticated$'].next(true);
 
       service.logout();
 
-      expect(localStorage.getItem('refresh_token')).toBeNull();
+      expect(localStorage.getItem('bookstore_refresh_token')).toBeNull();
       expect(service.getAccessToken()).toBeNull();
       const isAuth = await firstValueFrom(service.isAuthenticated$);
       expect(isAuth).toBe(false);
@@ -150,7 +150,7 @@ describe('AuthService', () => {
 
   describe('initializeAuth', () => {
     it('should attempt refresh when refresh token exists in storage', () => {
-      localStorage.setItem('refresh_token', 'stored-token');
+      localStorage.setItem('bookstore_refresh_token', 'stored-token');
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
@@ -174,7 +174,7 @@ describe('AuthService', () => {
     });
 
     it('should clear auth when refresh fails during initialization', async () => {
-      localStorage.setItem('refresh_token', 'stored-token');
+      localStorage.setItem('bookstore_refresh_token', 'stored-token');
 
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
@@ -195,7 +195,7 @@ describe('AuthService', () => {
 
   describe('refreshToken', () => {
     it('should refresh token when refresh token exists', (done) => {
-      localStorage.setItem('refresh_token', 'refresh-token');
+      localStorage.setItem('bookstore_refresh_token', 'refresh-token');
       const mockResponse: AuthResponse = {
         token: 'new-access-token',
         refreshToken: 'new-refresh-token',

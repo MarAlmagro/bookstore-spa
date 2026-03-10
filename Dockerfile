@@ -1,11 +1,11 @@
 # Stage 1: Build the Angular application
-FROM node:16-alpine AS build
+FROM node:22-alpine AS build
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --legacy-peer-deps
+RUN npm ci
 
 COPY . .
 

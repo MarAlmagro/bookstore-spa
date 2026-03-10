@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { setupApiMocks } from './fixtures/api-mocks';
 
 test.describe('Orders', () => {
   test.describe('Protected Routes', () => {
     test('should redirect to login when accessing orders without authentication', async ({ page }) => {
+      await setupApiMocks(page);
       await page.goto('/orders');
       
       await expect(page).toHaveURL(/\/auth\/login/);
@@ -10,6 +12,7 @@ test.describe('Orders', () => {
     });
 
     test('should redirect to login when accessing order detail without authentication', async ({ page }) => {
+      await setupApiMocks(page);
       await page.goto('/orders/some-order-id');
       
       await expect(page).toHaveURL(/\/auth\/login/);
@@ -18,6 +21,7 @@ test.describe('Orders', () => {
 
   test.describe('Authenticated User', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       await page.goto('/auth/login');
       await page.fill('[data-testid="auth-email-input"]', 'customer@example.com');
       await page.fill('[data-testid="auth-password-input"]', 'customer123');
@@ -66,6 +70,7 @@ test.describe('Orders', () => {
 
   test.describe('Order List', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       await page.goto('/auth/login');
       await page.fill('[data-testid="auth-email-input"]', 'customer@example.com');
       await page.fill('[data-testid="auth-password-input"]', 'customer123');
@@ -128,6 +133,7 @@ test.describe('Orders', () => {
 
   test.describe('Order Detail', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       await page.goto('/auth/login');
       await page.fill('[data-testid="auth-email-input"]', 'customer@example.com');
       await page.fill('[data-testid="auth-password-input"]', 'customer123');
@@ -190,6 +196,7 @@ test.describe('Orders', () => {
 
   test.describe('Order Status Badge', () => {
     test.beforeEach(async ({ page }) => {
+      await setupApiMocks(page);
       await page.goto('/auth/login');
       await page.fill('[data-testid="auth-email-input"]', 'customer@example.com');
       await page.fill('[data-testid="auth-password-input"]', 'customer123');

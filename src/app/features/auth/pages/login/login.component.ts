@@ -5,13 +5,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCard, MatCardContent, MatCardActions, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AuthService } from '@core/services';
+import { AnnouncerService } from '@core/services/announcer.service';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +22,18 @@ import { AuthService } from '@core/services';
     RouterLink,
     AsyncPipe,
     TranslateModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule
+    MatCard,
+    MatCardContent,
+    MatCardActions,
+    MatCardHeader,
+    MatCardTitle,
+    MatFormField,
+    MatLabel,
+    MatError,
+    MatInput,
+    MatButton,
+    MatIcon,
+    MatProgressSpinner
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -39,6 +46,7 @@ export class LoginComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly snackBar = inject(MatSnackBar);
   private readonly translate = inject(TranslateService);
+  private readonly announcer = inject(AnnouncerService);
 
   loginForm!: FormGroup;
   loading$ = new BehaviorSubject<boolean>(false);
@@ -59,7 +67,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      const errors = this.getFormErrors();
+      this.announcer.announce(`Form has errors: ${errors.join(', ')}`, 'assertive');
+      return;
+    }
 
     this.loading$.next(true);
     this.authService.login(this.loginForm.value).subscribe({
@@ -80,5 +92,22 @@ export class LoginComponent implements OnInit {
         );
       }
     });
+  }
+
+  private getFormErrors(): string[] {
+    const errors: string[] = [];
+    if (this.loginForm.get('email')?.hasError('required')) {
+      errors.push('Email is required');
+    }
+    if (this.loginForm.get('email')?.hasError('email')) {
+      errors.push('Email is invalid');
+    }
+    if (this.loginForm.get('password')?.hasError('required')) {
+      errors.push('Password is required');
+    }
+    if (this.loginForm.get('password')?.hasError('minlength')) {
+      errors.push('Password must be at least 6 characters');
+    }
+    return errors;
   }
 }

@@ -16,37 +16,41 @@
   </app-book-filters>
 
   @if (loading$ | async) {
-    <div class="loading-container" data-testid="catalog-loading">
+    <output class="loading-container" data-testid="catalog-loading" aria-live="polite">
       <mat-spinner></mat-spinner>
       <p>{{ 'catalog.loading' | translate }}</p>
-    </div>
+    </output>
   } @else {
     @if (books$ | async; as books) {
       @if (books.length > 0) {
-        <div class="book-grid">
-          @for (book of books; track trackByBookId($index, book)) {
-            <app-book-card
-              [book]="book"
-              (addToCart)="onAddToCart($event)"
-              (viewDetails)="onViewDetails($event)"
-              [attr.data-testid]="'catalog-book-card-' + book.id">
-            </app-book-card>
-          }
-        </div>
+        <section aria-label="Book catalog">
+          <ul class="book-grid">
+            @for (book of books; track trackByBookId($index, book)) {
+              <li>
+                <app-book-card
+                  [book]="book"
+                  (addToCart)="onAddToCart($event)"
+                  (viewDetails)="onViewDetails($event)"
+                  [attr.data-testid]="'catalog-book-card-' + book.id">
+                </app-book-card>
+              </li>
+            }
+          </ul>
 
-        @if (pagination$ | async; as pagination) {
-          @if (pagination && pagination.totalElements > 0) {
-            <mat-paginator
-              [length]="pagination.totalElements"
-              [pageSize]="pagination.size"
-              [pageIndex]="pagination.page"
-              [pageSizeOptions]="[10, 20, 50]"
-              (page)="onPageChange($event)"
-              data-testid="catalog-pagination"
-              aria-label="Select page">
-            </mat-paginator>
+          @if (pagination$ | async; as pagination) {
+            @if (pagination && pagination.totalElements > 0) {
+              <mat-paginator
+                [length]="pagination.totalElements"
+                [pageSize]="pagination.size"
+                [pageIndex]="pagination.page"
+                [pageSizeOptions]="[10, 20, 50]"
+                (page)="onPageChange($event)"
+                data-testid="catalog-pagination"
+                aria-label="Select page">
+              </mat-paginator>
+            }
           }
-        }
+        </section>
       } @else {
         <div class="empty-state" data-testid="catalog-empty-state">
           <mat-icon class="empty-icon">menu_book</mat-icon>

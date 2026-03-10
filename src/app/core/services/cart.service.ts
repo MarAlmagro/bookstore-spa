@@ -1,13 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CartItem, Book, OrderItem } from '@app/models';
+import { SecureStorageService } from './secure-storage.service';
+import { LoggingService } from './logging.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private readonly CART_STORAGE_KEY = 'bookstore_cart';
+  private readonly storage = inject(SecureStorageService);
+  private readonly logger = inject(LoggingService);
+  private readonly CART_STORAGE_KEY = 'cart';
   private readonly _items$ = new BehaviorSubject<CartItem[]>([]);
 
   readonly items$ = this._items$.asObservable();
@@ -75,22 +79,23 @@ export class CartService {
 
   private loadFromStorage(): void {
     try {
-      const stored = localStorage.getItem(this.CART_STORAGE_KEY);
+      const stored = this.storage.getItem(this.CART_STORAGE_KEY);
       if (stored) {
         const items = JSON.parse(stored) as CartItem[];
         this._items$.next(items);
+        this.logger.debug('Cart loaded from storage', 'CartService', { itemCount: items.length });
       }
     } catch (error) {
-      console.error('Failed to load cart from storage:', error);
+      this.logger.error('Failed to load cart from storage', error as Error, 'CartService');
       this._items$.next([]);
     }
   }
 
   private saveToStorage(items: CartItem[]): void {
     try {
-      localStorage.setItem(this.CART_STORAGE_KEY, JSON.stringify(items));
+      this.storage.setItem(this.CART_STORAGE_KEY, JSON.stringify(items));
     } catch (error) {
-      console.error('Failed to save cart to storage:', error);
+      this.logger.error('Failed to save cart to storage', error as Error, 'CartService');
     }
   }
 }

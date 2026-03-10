@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -18,9 +18,10 @@ import { Book } from '@app/models';
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    MatButton,
+    MatIconButton,
+    MatIcon,
+    MatProgressSpinner,
     TranslateModule
   ],
   templateUrl: './book-detail.component.html',

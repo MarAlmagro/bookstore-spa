@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { take, filter, switchMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { EmptyStateComponent } from '@app/shared/components/empty-state/empty-st
   standalone: true,
   imports: [
     CommonModule,
-    MatProgressSpinnerModule,
+    MatProgressSpinner,
     TranslateModule,
     OrderCardComponent,
     EmptyStateComponent

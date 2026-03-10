@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
@@ -17,9 +17,9 @@ import { BookCardComponent } from '../../components/book-card/book-card.componen
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
+    MatButton,
+    MatIcon,
+    MatProgressSpinner,
     TranslateModule,
     BookCardComponent
   ],

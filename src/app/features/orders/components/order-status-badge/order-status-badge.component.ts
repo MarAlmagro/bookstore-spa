@@ -1,13 +1,13 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { OrderStatus } from '@app/models';
 
 @Component({
   selector: 'app-order-status-badge',
   standalone: true,
-  imports: [CommonModule, MatIconModule, TranslateModule],
+  imports: [CommonModule, MatIcon, TranslateModule],
   templateUrl: './order-status-badge.component.html',
   styleUrls: ['./order-status-badge.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

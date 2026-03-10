@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { setupApiMocks } from './fixtures/api-mocks';
 
 test.describe('Authentication', () => {
   test.beforeEach(async ({ page }) => {
+    await setupApiMocks(page);
     await page.goto('/');
   });
 
