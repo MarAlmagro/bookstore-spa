@@ -2,12 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCard, MatCardHeader, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
+import { MatButton } from '@angular/material/button';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, combineLatest, take, switchMap } from 'rxjs';
 import { CartService } from '@app/core/services/cart.service';
 import { AuthService } from '@app/core/services/auth.service';
@@ -20,12 +19,15 @@ import { CreateOrderRequest } from '@app/models';
   imports: [
     CommonModule,
     TranslateModule,
-    MatCardModule,
-    MatButtonModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatDividerModule,
-    MatSnackBarModule
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardContent,
+    MatCardActions,
+    MatButton,
+    MatList,
+    MatListItem,
+    MatProgressSpinner
   ],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
