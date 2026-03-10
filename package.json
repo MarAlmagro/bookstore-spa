@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:e2e": "ng serve --configuration e2e",
     "build": "ng build",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
@@ -44,6 +45,7 @@
     "@angular-devkit/build-angular": "^21.1.2",
     "@angular/cli": "^21.1.2",
     "@angular/compiler-cli": "^21.1.2",
+    "@axe-core/playwright": "^4.11.1",
     "@playwright/test": "^1.58.1",
     "@types/jest": "^30.0.0",
     "angular-eslint": "21.2.0",
@@ -54,10 +56,17 @@
     "jest-preset-angular": "^16.0.0",
     "lint-staged": "^15.3.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "8.50.1"
+    "typescript-eslint": "8.50.1",
+    "wait-on": "^9.0.4"
   },
   "lint-staged": {
-    "*.ts": ["eslint --fix", "git add"],
-    "*.html": ["eslint --fix", "git add"]
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.html": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
