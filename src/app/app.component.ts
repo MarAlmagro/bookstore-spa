@@ -5,7 +5,8 @@ import { ThemeService } from './core/services/theme.service';
 import { PerformanceService } from './core/services/performance.service';
 import { environment } from '../environments/environment';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly themeService = inject(ThemeService);
   private readonly performanceService = inject(PerformanceService);
+  private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
   title = 'bookstore-spa';
 
@@ -36,5 +38,15 @@ export class AppComponent implements OnInit {
     if (environment.production) {
       this.performanceService.measureCoreWebVitals();
     }
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(() => {
+      const mainContent = document.getElementById('main-content');
+      if (mainContent) {
+        mainContent.focus();
+      }
+    });
   }
 }
