@@ -3,12 +3,14 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CartItem, Book, OrderItem } from '@app/models';
 import { SecureStorageService } from './secure-storage.service';
+import { LoggingService } from './logging.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private readonly storage = inject(SecureStorageService);
+  private readonly logger = inject(LoggingService);
   private readonly CART_STORAGE_KEY = 'cart';
   private readonly _items$ = new BehaviorSubject<CartItem[]>([]);
 
@@ -81,9 +83,10 @@ export class CartService {
       if (stored) {
         const items = JSON.parse(stored) as CartItem[];
         this._items$.next(items);
+        this.logger.debug('Cart loaded from storage', 'CartService', { itemCount: items.length });
       }
     } catch (error) {
-      console.error('Failed to load cart from storage:', error);
+      this.logger.error('Failed to load cart from storage', error as Error, 'CartService');
       this._items$.next([]);
     }
   }
@@ -92,7 +95,7 @@ export class CartService {
     try {
       this.storage.setItem(this.CART_STORAGE_KEY, JSON.stringify(items));
     } catch (error) {
-      console.error('Failed to save cart to storage:', error);
+      this.logger.error('Failed to save cart to storage', error as Error, 'CartService');
     }
   }
 }

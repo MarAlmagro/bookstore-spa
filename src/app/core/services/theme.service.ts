@@ -1,12 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SecureStorageService } from './secure-storage.service';
+import { LoggingService } from './logging.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
   private readonly storage = inject(SecureStorageService);
+  private readonly logger = inject(LoggingService);
   private readonly THEME_KEY = 'theme';
   private readonly DARK_THEME_CLASS = 'dark-theme';
   
@@ -49,7 +51,7 @@ export class ThemeService {
     try {
       this.storage.setItem(this.THEME_KEY, isDark ? 'dark' : 'light');
     } catch (error) {
-      console.warn('Failed to save theme preference:', error);
+      this.logger.warn('Failed to save theme preference', 'ThemeService', { error });
     }
   }
 
@@ -62,7 +64,7 @@ export class ThemeService {
       
       return globalThis.matchMedia?.('(prefers-color-scheme: dark)')?.matches ?? false;
     } catch (error) {
-      console.warn('Failed to load theme preference:', error);
+      this.logger.warn('Failed to load theme preference', 'ThemeService', { error });
       return false;
     }
   }
