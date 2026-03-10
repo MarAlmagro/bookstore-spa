@@ -11,6 +11,19 @@ This directory contains all project documentation for the Bookstore User SPA.
 | [API.md](API.md) | API endpoints, authentication flow, error handling |
 | [TESTING.md](TESTING.md) | Testing strategy, unit/E2E patterns, coverage requirements |
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Docker, Nginx, production deployment |
+| [REVIEW_SUMMARY.md](REVIEW_SUMMARY.md) | Comprehensive project review |
+
+## Improvement Plans
+
+| Plan | Priority | Description |
+|------|----------|-------------|
+| [PLAN-01-CICD](plans/PLAN-01-CICD.md) | 🔴 Critical | CI/CD pipeline setup |
+| [PLAN-02-TESTING](plans/PLAN-02-TESTING.md) | 🟠 High | E2E mock strategy & accessibility testing |
+| [PLAN-03-PERFORMANCE](plans/PLAN-03-PERFORMANCE.md) | 🟠 High | Bundle optimization |
+| [PLAN-04-SECURITY](plans/PLAN-04-SECURITY.md) | 🟡 Medium | Security hardening |
+| [PLAN-05-OBSERVABILITY](plans/PLAN-05-OBSERVABILITY.md) | 🟡 Medium | Logging and monitoring |
+| [PLAN-06-ACCESSIBILITY](plans/PLAN-06-ACCESSIBILITY.md) | 🟡 Medium | A11y improvements |
+| [PLAN-07-DOCUMENTATION](plans/PLAN-07-DOCUMENTATION.md) | 🟢 Low | Documentation gaps |
 
 ## API Contracts
 
