@@ -67,6 +67,20 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "e2e": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.e2e.ts"
+                }
+              ],
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -82,6 +96,9 @@
             },
             "development": {
               "buildTarget": "bookstore-spa:build:development"
+            },
+            "e2e": {
+              "buildTarget": "bookstore-spa:build:e2e"
             }
           },
           "defaultConfiguration": "development"
