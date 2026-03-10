@@ -31,7 +31,10 @@ export class CatalogService {
       tap(response => {
         this._books$.next(response.content);
         this._pagination$.next(response);
-        this.extractCategories(response.content);
+        // Only extract categories on first load or if no categories exist
+        if (this._categories$.value.length === 0) {
+          this.extractCategories(response.content);
+        }
       }),
       finalize(() => this._loading$.next(false))
     );
